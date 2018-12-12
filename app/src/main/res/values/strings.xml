@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">ToutPret</string>
+    <string name="app_name">Tout Prêt</string>
+    <string name="action_sun">Sun</string>
+    <string name="action_take_away">Take Away</string>
 </resources>
