@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(loginActivity);
 
+
+
         // mDatabase = FirebaseDatabase.getInstance();
 
         // writeNewUser("Thomas Loyau", "thomas.loyau@isep.fr");
