@@ -1,20 +1,28 @@
 package toutpret.isep.com.toutpret;
 
-import android.support.v7.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-import toutpret.isep.com.toutpret.models.User;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    FirebaseDatabase mDatabase;
+    private EditText inputEmail, inputPassword;
+    private FirebaseAuth auth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,24 +30,39 @@ public class SignUpActivity extends AppCompatActivity {
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
-    }
 
-    private void writeNewUser(String name, String email) {
-        DatabaseReference usersRef = mDatabase.getReference("users").push();
+        auth = FirebaseAuth.getInstance();
 
-        User user = new User(name, email);
+        Button button_SignUp = (Button) findViewById(R.id.button_Inscription);
 
-        usersRef.setValue(user);
+        inputEmail = (EditText) findViewById(R.id.text_email);
+        inputPassword = (EditText) findViewById(R.id.text_mdp);
 
-        Log.v("bonjour-aurevoir", "User added");
+        button_SignUp.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
 
+                String email = inputEmail.getText().toString().trim();
+                String password = inputPassword.getText().toString().trim();
 
+                auth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                Toast.makeText(SignUpActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+
+                                // If sign in fails, display a message to the user. If sign in succeeds
+                                // the auth state listener will be notified and logic to handle the
+                                // signed in user can be handled in the listener.
+                                if (!task.isSuccessful()) {
+                                    Toast.makeText(SignUpActivity.this, "Authentication failed." + task.getException(),
+                                            Toast.LENGTH_SHORT).show();
+                                } else {
+                                    startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                                    finish();
+                                }
+                            }
+                        });
+            }
+        });
     }
 }
-

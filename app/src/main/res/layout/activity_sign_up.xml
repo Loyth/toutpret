@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="73dp"
         android:text="Mot de passe"
-        app:layout_constraintBottom_toTopOf="@+id/button_signUp"
+        app:layout_constraintBottom_toTopOf="@+id/button_Inscription"
         app:layout_constraintEnd_toStartOf="@+id/text_email"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,7 +70,7 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
 
     <Button
-        android:id="@+id/button_signUp"
+        android:id="@+id/button_Inscription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="143dp"
