@@ -107,13 +107,4 @@ public class MainActivity extends AppCompatActivity {
         mDatabase.getReference("users").addChildEventListener(childEventListener);
     }
 
-    private void writeNewUser(String name, String email) {
-        DatabaseReference usersRef = mDatabase.getReference("users").push();
-
-        User user = new User(name, email);
-
-        usersRef.setValue(user);
-
-        Log.v("bonjour-aurevoir", "User added");
-    }
 }
