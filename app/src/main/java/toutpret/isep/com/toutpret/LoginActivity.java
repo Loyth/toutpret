@@ -21,13 +21,11 @@ public class LoginActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Se connecter");
 
-        Button button_SignUp = (Button) findViewById(R.id.button_SignUp);
+        Button button_SignUp = findViewById(R.id.button_SignUp);
         button_SignUp.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-
-                Intent SignUpActivity= new Intent(getApplicationContext(), SignUpActivity.class);
+                Intent SignUpActivity = new Intent(getApplicationContext(), SignUpActivity.class);
                 startActivity(SignUpActivity);
-
             }
         });
     }
