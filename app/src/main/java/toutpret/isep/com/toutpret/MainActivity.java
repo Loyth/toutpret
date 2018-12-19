@@ -1,6 +1,8 @@
 package toutpret.isep.com.toutpret;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         auth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance();
 
         if (auth.getCurrentUser() == null) {
             Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
@@ -43,14 +46,39 @@ public class MainActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Tout Prêt");
+    }
 
+    public void getUser() {
+        String userId = auth.getCurrentUser().getUid();
+        DatabaseReference refUsers = mDatabase.getReference("users");
 
+        refUsers.orderByChild("userID").equalTo(userId).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                User newUser = dataSnapshot.getValue(User.class);
+                Log.i("userToutPret", newUser.email);
+            }
 
-        // mDatabase = FirebaseDatabase.getInstance();
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-        // writeNewUser("Thomas Loyau", "thomas.loyau@isep.fr");
+            }
 
-        // setListeners();
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -72,63 +100,4 @@ public class MainActivity extends AppCompatActivity {
 
         return true;
     }
-
-    private void setListeners() {
-        ChildEventListener childEventListener = new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
-                Log.d("bonjour-aurevoir", "onChildAdded:" + dataSnapshot.getKey());
-
-                // A new comment has been added, add it to the displayed list
-                User user = dataSnapshot.getValue(User.class);
-
-                // Log.v("bonjour-aurevoir", user.toString());
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
-                Log.v("bonjour-aurevoir", "onChildChanged:" + dataSnapshot.getKey());
-
-                // A comment has changed, use the key to determine if we are displaying this
-                // comment and if so displayed the changed comment.
-                User newUser = dataSnapshot.getValue(User.class);
-                String userKey = dataSnapshot.getKey();
-
-                Log.v("bonjour-aurevoir", userKey);
-                // ...
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                Log.d("bonjour-aurevoir", "onChildRemoved:" + dataSnapshot.getKey());
-
-                // A comment has changed, use the key to determine if we are displaying this
-                // comment and if so remove it.
-                String userKey = dataSnapshot.getKey();
-                Log.v("bonjour-aurevoir", userKey);
-                // ...
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
-                Log.d("bonjour-aurevoir", "onChildMoved:" + dataSnapshot.getKey());
-
-                // A comment has changed position, use the key to determine if we are
-                // displaying this comment and if so move it.
-                User movedUser = dataSnapshot.getValue(User.class);
-                String userKey = dataSnapshot.getKey();
-                Log.v("bonjour-aurevoir", userKey);
-                // ...
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.v("bonjour-aurevoir", "postComments:onCancelled", databaseError.toException());
-                Toast.makeText(getApplicationContext(), "Failed to load comments.",
-                        Toast.LENGTH_SHORT).show();
-            }
-        };
-        mDatabase.getReference("users").addChildEventListener(childEventListener);
-    }
-
 }
