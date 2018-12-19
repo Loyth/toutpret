@@ -5,11 +5,15 @@
         android:id="@+id/action_sun"
         android:icon="@drawable/ic_action_sun"
         android:title="@string/action_sun"
-        app:showAsAction="always"
-        />
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_take_away"
         android:icon="@drawable/ic_action_take_away"
         android:title="@string/action_take_away"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_logout"
+        android:icon="@drawable/ic_action_logout"
+        android:title="@string/action_logout"
         app:showAsAction="always" />
 </menu>

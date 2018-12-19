@@ -5,12 +5,12 @@ import com.google.firebase.database.IgnoreExtraProperties;
 @IgnoreExtraProperties
 public class User {
 
-    private String userID;
-    private String email;
-    private String firstName;
-    private String lastName;
-    private String phoneNumber;
-    private String type;
+    public String userID;
+    public String email;
+    public String firstName;
+    public String lastName;
+    public String phoneNumber;
+    public String type;
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)

@@ -2,4 +2,5 @@
     <string name="app_name">Tout Prêt</string>
     <string name="action_sun">Sun</string>
     <string name="action_take_away">Take Away</string>
+    <string name="action_logout">Logout</string>
 </resources>

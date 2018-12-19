@@ -8,7 +8,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,8 +30,6 @@ public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private String userID;
 
-    private FirebaseDatabase mDatabase;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +40,6 @@ public class SignUpActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("S'inscrire");
-
-        mDatabase = FirebaseDatabase.getInstance();
 
         auth = FirebaseAuth.getInstance();
 
@@ -125,7 +120,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 } else {
                                     userID = auth.getUid();
 
-                                    DatabaseReference usersDatabase = mDatabase.getReference("users").push();
+                                    DatabaseReference usersDatabase = FirebaseDatabase.getInstance().getReference("users").push();
 
                                     User user = new User(userID, email, firstName, lastName, phone, "user");
 
@@ -134,8 +129,8 @@ public class SignUpActivity extends AppCompatActivity {
                                     Toast.makeText(SignUpActivity.this, "Votre compte a bien été créé !", Toast.LENGTH_SHORT).show();
 
                                     Intent login = new Intent(getApplicationContext(), LoginActivity.class);
-                                    login.putExtra("email", email);
-                                    login.putExtra("password", password);
+                                    startActivity(login);
+                                    finish();
                                 }
                             }
                         });
