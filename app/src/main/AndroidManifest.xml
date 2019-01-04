@@ -17,7 +17,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" />
-        <activity android:name=".SignUpActivity"></activity>
+        <activity android:name=".SignUpActivity" />
+        <activity
+            android:name=".ProductsActivity"
+            android:label="@string/title_activity_products"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>
