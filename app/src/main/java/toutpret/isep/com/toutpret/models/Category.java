@@ -7,21 +7,18 @@ import java.util.List;
 
 @IgnoreExtraProperties
 public class Category {
-
     public String name;
+    public int thumbnail;
     public ArrayList products;
 
 
-
     public Category() {
-        // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public Category(String name, ArrayList products) {
-
-        name = this.name;
-        products = this.products;
-
+    public Category(String name, ArrayList products, int thumbnail) {
+        this.name = name;
+        this.products = products;
+        this.thumbnail = thumbnail;
     }
 
     public String getName() {
@@ -38,5 +35,13 @@ public class Category {
 
     public void setProducts(ArrayList products) {
         this.products = products;
+    }
+
+    public int getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(int thumbnail) {
+        this.thumbnail = thumbnail;
     }
 }

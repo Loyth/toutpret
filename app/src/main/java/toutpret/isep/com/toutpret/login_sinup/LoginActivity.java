@@ -1,4 +1,4 @@
-package toutpret.isep.com.toutpret;
+package toutpret.isep.com.toutpret.login_sinup;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -16,7 +16,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
+
+import toutpret.isep.com.toutpret.MainActivity;
+import toutpret.isep.com.toutpret.R;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText inputEmail;
@@ -35,10 +37,6 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
             finish();
         }
-
-
-        Toolbar myToolbar = findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Se connecter");
