@@ -1,4 +1,4 @@
-package toutpret.isep.com.toutpret;
+package toutpret.isep.com.toutpret.login_sinup;
 
 
 import android.content.Intent;
@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import toutpret.isep.com.toutpret.R;
 import toutpret.isep.com.toutpret.models.User;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -34,9 +35,6 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
-        Toolbar myToolbar = findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("S'inscrire");

@@ -2,26 +2,18 @@ package toutpret.isep.com.toutpret.models;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @IgnoreExtraProperties
 public class Category {
-
     public String name;
-    public ArrayList products;
-
+    public int thumbnail;
 
 
     public Category() {
-        // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public Category(String name, ArrayList products) {
-
-        name = this.name;
-        products = this.products;
-
+    public Category(String name, int thumbnail) {
+        this.name = name;
+        this.thumbnail = thumbnail;
     }
 
     public String getName() {
@@ -32,11 +24,11 @@ public class Category {
         this.name = name;
     }
 
-    public ArrayList getProducts() {
-        return products;
+    public int getThumbnail() {
+        return thumbnail;
     }
 
-    public void setProducts(ArrayList products) {
-        this.products = products;
+    public void setThumbnail(int thumbnail) {
+        this.thumbnail = thumbnail;
     }
 }
