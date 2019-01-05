@@ -26,6 +26,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         imgs = new ArrayList<>();
         imgs.add(R.drawable.apple);
+        imgs.add(R.drawable.viennoiserie);
+        imgs.add(R.drawable.boissons);
     }
 
     @NonNull

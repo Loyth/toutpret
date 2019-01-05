@@ -22,10 +22,7 @@
         <activity android:name=".login_sinup.SignUpActivity" />
         <activity android:name=".categories.CategoriesActivity" />
         <activity
-            android:name=".ProductsActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
-        <activity
-            android:name=".ProductsActivity2"></activity>
+            android:name=".products.ProductsActivity"></activity>
     </application>
 
 </manifest>

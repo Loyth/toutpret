@@ -1,12 +1,12 @@
-package toutpret.isep.com.toutpret;
+package toutpret.isep.com.toutpret.products;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -18,21 +18,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-import toutpret.isep.com.toutpret.models.Category;
+import toutpret.isep.com.toutpret.R;
 import toutpret.isep.com.toutpret.models.Product;
 
-public class FragmentProduct extends Fragment {
-
+public class FragmentCrepes extends Fragment {
     View view;
-    private String categoryID;
     private FirebaseDatabase mDatabase;
     private FirebaseAuth auth;
     private List<Product> listProducts;
+    private TextView title;
 
+    public FragmentCrepes() {
 
-    public FragmentProduct() {
     }
-
 
     @Nullable
     @Override
@@ -44,29 +42,28 @@ public class FragmentProduct extends Fragment {
         this.view = view;
     }
 
-    public String getCategoryID() {
-        return categoryID;
-    }
-
-    public void setCategoryID(String categoryID) {
-        this.categoryID = categoryID;
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_products,container,false);
+        view = inflater.inflate(R.layout.fragment_products, container, false);
+
+        title = view.findViewById(R.id.fragment_title);
+        title.setText("Crêpes");
+
+        listProducts = new ArrayList<>();
+
         auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();
-        listProducts = new ArrayList<>();
-        getProducts();
+
+        getProducts("b");
+
         return view;
     }
 
-    private void getProducts () {
+    public void getProducts(String categoryId) {
         DatabaseReference myRef = mDatabase.getReference("products");
 
-        myRef.addChildEventListener(new ChildEventListener() {
+        myRef.orderByChild("categoryId").equalTo(categoryId).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 Product newProduct = dataSnapshot.getValue(Product.class);
@@ -74,18 +71,20 @@ public class FragmentProduct extends Fragment {
             }
 
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {}
+            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
+            }
 
             @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
 
             @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {}
+            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
+            }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {}
+            public void onCancelled(DatabaseError databaseError) {
+            }
         });
-    }
-
     }
 }
