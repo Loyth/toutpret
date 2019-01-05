@@ -1,5 +1,4 @@
 package toutpret.isep.com.toutpret;
-
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -7,7 +6,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -19,24 +17,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.TextView;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-
 import toutpret.isep.com.toutpret.models.Category;
 import toutpret.isep.com.toutpret.models.User;
-
 public class ProductsActivity extends AppCompatActivity {
 
 
@@ -56,10 +47,10 @@ public class ProductsActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
-    ArrayList<String> listCategory = new ArrayList<String>();
 
+
+    ArrayList<String> listCategory = new ArrayList<String>();
     FirebaseDatabase mDatabase= FirebaseDatabase.getInstance();
-    DatabaseReference myRef = mDatabase.getReference("category");
 
 
     @Override
@@ -98,24 +89,30 @@ public class ProductsActivity extends AppCompatActivity {
 
         FirebaseDatabase mDatabase= FirebaseDatabase.getInstance();
         DatabaseReference myRef = mDatabase.getReference("category");
-
-
-
-        myRef.orderByChild("category").addChildEventListener(new ChildEventListener() {
+        myRef.addChildEventListener(new ChildEventListener() {
 
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    Category cat = new Category();
-                    cat.setName(ds.getValue(Category.class).getName());
-                    listCategory.add(cat.toString());
+                    String value = ds.getValue(Category.class).toString();
+                    User newUser = dataSnapshot.getValue(User.class);
+                    //cat.setName(ds.getValue(Category.class).getName());
+                    //cat.setName(ds.child("category").getValue(Category.class).getName());
+                    listCategory.add(value);
                 }
-                Log.i("Test2", "value " + String.valueOf(listCategory));
+                Log.d("Test2", "value " + String.valueOf(listCategory));
             }
 
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    Category cat = new Category();
+                    //cat.setName(ds.getValue(Category.class).getName());
+                    cat.setName(ds.child("category").getValue(Category.class).getName());
+                    listCategory.add(cat.toString());
+                }
+                Log.d("Test3", "value " + String.valueOf(listCategory));
             }
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
