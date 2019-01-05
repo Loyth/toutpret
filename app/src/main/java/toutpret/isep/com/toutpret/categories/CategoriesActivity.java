@@ -5,13 +5,19 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,16 +40,41 @@ public class CategoriesActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance();
 
         listCategory = new ArrayList<>();
-        listCategory.add(new Category("Pomme", new ArrayList(), R.drawable.apple));
-        listCategory.add(new Category("Poire", new ArrayList(), R.drawable.apple));
-        listCategory.add(new Category("Poire", new ArrayList(), R.drawable.apple));
-        listCategory.add(new Category("Poire", new ArrayList(), R.drawable.apple));
-        listCategory.add(new Category("Poire", new ArrayList(), R.drawable.apple));
+
+        getCategories();
 
         RecyclerView myrv = findViewById(R.id.category_recyclerview_id);
         RecyclerViewAdapter myAdapter = new RecyclerViewAdapter(this, listCategory);
         myrv.setLayoutManager(new GridLayoutManager(this, 2));
         myrv.setAdapter(myAdapter);
+    }
+
+    private void getCategories() {
+        DatabaseReference myRef = mDatabase.getReference("categories");
+
+        Log.i("userFirebase", "Bonjour");
+
+        myRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+                Category newCategory = dataSnapshot.getValue(Category.class);
+                Log.i("userFirebase", newCategory.toString());
+                Log.i("userFirebase", newCategory.getName());
+                Log.i("userFirebase", String.valueOf(newCategory.getThumbnail()));
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {}
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {}
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
     }
 
     @Override
