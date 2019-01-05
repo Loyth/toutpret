@@ -24,6 +24,8 @@
         <activity
             android:name=".ProductsActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity
+            android:name=".ProductsActivity2"></activity>
     </application>
 
 </manifest>
