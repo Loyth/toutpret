@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import toutpret.isep.com.toutpret.R;
@@ -17,10 +18,14 @@ import toutpret.isep.com.toutpret.models.Category;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
     private Context mContext;
     private List<Category> mData;
+    ArrayList<Integer> imgs;
 
     public RecyclerViewAdapter(Context mContext, List<Category> mData) {
         this.mContext = mContext;
         this.mData = mData;
+
+        imgs = new ArrayList<>();
+        imgs.add(R.drawable.apple);
     }
 
     @NonNull
@@ -36,7 +41,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
         myViewHolder.tv_category_title.setText(mData.get(i).getName());
-        myViewHolder.img_category_thumbnail.setImageResource(mData.get(i).getThumbnail());
+        myViewHolder.img_category_thumbnail.setImageResource(imgs.get(mData.get(i).getThumbnail()));
     }
 
     @Override
