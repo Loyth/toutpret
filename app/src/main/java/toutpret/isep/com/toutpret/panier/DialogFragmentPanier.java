@@ -24,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -120,7 +121,13 @@ public class DialogFragmentPanier extends DialogFragment {
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.FRANCE);
                 Date date = new Date();
 
-                Commandes commande = new Commandes(number, listProducts, dateFormat.format(date), auth.getUid());
+                HashMap<String, ProductPanier> map = new HashMap<>();
+
+                for (int i = 0; i < listProducts.size(); i++) {
+                    map.put(String.valueOf(i), listProducts.get(i));
+                }
+
+                Commandes commande = new Commandes(number, map, dateFormat.format(date), auth.getUid());
 
                 commandesDatabase.setValue(commande);
 
