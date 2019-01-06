@@ -21,8 +21,10 @@
         <activity android:name=".login_sinup.LoginActivity" />
         <activity android:name=".login_sinup.SignUpActivity" />
         <activity android:name=".categories.CategoriesActivity" />
-        <activity
-            android:name=".products.ProductsActivity"></activity>
+        <activity android:name=".products.ProductsActivity" />
+        <activity android:name=".orderpicker.OrderPickerActivity" />
+        <activity android:name=".orderpicker.OrderPicker_Catalogue" />
+        <activity android:name=".orderpicker.OrderPicker_Commandes"></activity>
     </application>
 
 </manifest>
