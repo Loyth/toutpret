@@ -1,4 +1,4 @@
-package toutpret.isep.com.toutpret;
+package toutpret.isep.com.toutpret.products;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

@@ -24,7 +24,8 @@
         <activity android:name=".products.ProductsActivity" />
         <activity android:name=".orderpicker.OrderPickerActivity" />
         <activity android:name=".orderpicker.OrderPicker_Catalogue" />
-        <activity android:name=".orderpicker.OrderPicker_Commandes"></activity>
+        <activity android:name=".orderpicker.OrderPicker_Commandes" />
+        <activity android:name=".commandes.CommandesActivity"></activity>
     </application>
 
 </manifest>

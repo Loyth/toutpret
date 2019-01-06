@@ -7,7 +7,6 @@ public class Category {
     public String name;
     public int thumbnail;
 
-
     public Category() {
     }
 

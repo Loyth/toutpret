@@ -101,6 +101,8 @@ public class FragmentFruits extends Fragment implements FragmentInterface {
 
                 listProducts.add(newProduct);
                 myAdapter.notifyDataSetChanged();
+
+                syncQuantity();
             }
 
             @Override
@@ -156,6 +158,19 @@ public class FragmentFruits extends Fragment implements FragmentInterface {
 
                 listProducts.get(position).setQuantity(0);
                 myAdapter.notifyItemChanged(position);
+            }
+        }
+    }
+
+    public void syncQuantity() {
+        for (ProductPanier productPanier : Panier.getListProducts()) {
+            for (Product product : listProducts) {
+                if (productPanier.getId().equals(product.getId())) {
+                    int position = listProducts.indexOf(product);
+                    listProducts.get(position).setQuantity(productPanier.getQuantity());
+                    myAdapter.notifyItemChanged(position);
+                    break;
+                }
             }
         }
     }
