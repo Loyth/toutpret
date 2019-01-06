@@ -3,6 +3,7 @@ package toutpret.isep.com.toutpret.products;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import java.util.List;
 
 import toutpret.isep.com.toutpret.R;
 import toutpret.isep.com.toutpret.models.Product;
+import toutpret.isep.com.toutpret.models.ProductPanier;
+import toutpret.isep.com.toutpret.panier.Panier;
 
 public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecyclerViewAdapter.MyViewHolder> {
     private Context mContext;
@@ -46,6 +49,55 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
         myViewHolder.tv_product_title.setText(mData.get(i).getName());
         myViewHolder.img_product_thumbnail.setImageResource(imgs.get(mData.get(i).getThumbnail()));
         myViewHolder.tv_product_quantity.setText(String.valueOf(mData.get(i).getQuantity()));
+
+        final int position = i;
+
+        myViewHolder.b_product_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<ProductPanier> listPanierProducts = Panier.getListProducts();
+
+                boolean productAlreadyAdded = false;
+                int currentQuantity = 0;
+
+
+                for (ProductPanier panierProduct : listPanierProducts) {
+                    if (panierProduct.getId().equals(mData.get(position).getId())) {
+                        productAlreadyAdded = true;
+                        currentQuantity = panierProduct.getQuantity();
+                        break;
+                    }
+                }
+
+                if (productAlreadyAdded) {
+                    Panier.update(new ProductPanier(mData.get(position).getId(), mData.get(position).getName(), currentQuantity + 1, mData.get(position).getPrice()), false);
+                } else {
+                    Panier.add(new ProductPanier(mData.get(position).getId(), mData.get(position).getName(), 1, mData.get(position).getPrice()));
+                }
+            }
+        });
+
+        myViewHolder.b_product_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<ProductPanier> listPanierProducts = Panier.getListProducts();
+
+                for (ProductPanier panierProduct : listPanierProducts) {
+                    if (panierProduct.getId().equals(mData.get(position).getId())) {
+
+                        panierProduct.setQuantity(panierProduct.getQuantity() - 1);
+
+                        if (panierProduct.getQuantity() > 0) {
+                            Panier.update(panierProduct, true);
+                        } else {
+                            Panier.remove(panierProduct);
+                        }
+
+                        return;
+                    }
+                }
+            }
+        });
     }
 
     @Override

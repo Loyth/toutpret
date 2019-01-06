@@ -1,8 +1,13 @@
 package toutpret.isep.com.toutpret.products;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -22,16 +27,20 @@ import java.util.List;
 
 import toutpret.isep.com.toutpret.R;
 import toutpret.isep.com.toutpret.models.Product;
+import toutpret.isep.com.toutpret.models.ProductPanier;
+import toutpret.isep.com.toutpret.panier.DialogFragmentPanier;
+import toutpret.isep.com.toutpret.panier.Panier;
 
-public class FragmentFruits extends Fragment {
+public class FragmentFruits extends Fragment implements FragmentInterface {
     View view;
     private FirebaseDatabase mDatabase;
     private FirebaseAuth auth;
     private List<Product> listProducts;
     private ProductRecyclerViewAdapter myAdapter;
+    private FloatingActionButton panier;
 
     public FragmentFruits() {
-
+        Panier.addFragment(this);
     }
 
     @Nullable
@@ -61,6 +70,22 @@ public class FragmentFruits extends Fragment {
         myrv.setLayoutManager(new GridLayoutManager(getContext(), 1));
         myrv.setAdapter(myAdapter);
 
+        panier = view.findViewById(R.id.fruits_panier);
+
+        panier.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                if (prev != null) {
+                    ft.remove(prev);
+                }
+                ft.addToBackStack(null);
+                DialogFragment dialogFragment = new DialogFragmentPanier();
+                dialogFragment.show(ft, "Mon panier");
+            }
+        });
+
         return view;
     }
 
@@ -72,6 +97,7 @@ public class FragmentFruits extends Fragment {
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 Product newProduct = dataSnapshot.getValue(Product.class);
                 newProduct.setId(dataSnapshot.getKey());
+                newProduct.setQuantity(0);
 
                 listProducts.add(newProduct);
                 myAdapter.notifyDataSetChanged();
@@ -85,6 +111,8 @@ public class FragmentFruits extends Fragment {
                 for (Product product : listProducts) {
                     if (product.getId().equals(productChanged.getId())) {
                         int position = listProducts.indexOf(product);
+
+                        productChanged.setQuantity(listProducts.get(position).getQuantity());
 
                         listProducts.set(position, productChanged);
                         myAdapter.notifyItemChanged(position);
@@ -106,6 +134,40 @@ public class FragmentFruits extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+    }
+
+    @Override
+    public void checkIfProductIsMine_add_update(ProductPanier p) {
+        for (Product product : listProducts) {
+            if (product.getId().equals(p.getId())) {
+                int position = listProducts.indexOf(product);
+
+                listProducts.get(position).setQuantity(p.getQuantity());
+                myAdapter.notifyItemChanged(position);
+            }
+        }
+    }
+
+    @Override
+    public void checkIfProductIsMine_remove(ProductPanier p) {
+        for (Product product : listProducts) {
+            if (product.getId().equals(p.getId())) {
+                int position = listProducts.indexOf(product);
+
+                listProducts.get(position).setQuantity(0);
+                myAdapter.notifyItemChanged(position);
+            }
+        }
+    }
+
+    @Override
+    public void resetProducts() {
+        for (Product product : listProducts) {
+            int position = listProducts.indexOf(product);
+
+            listProducts.get(position).setQuantity(0);
+            myAdapter.notifyItemChanged(position);
+        }
     }
 }
 
