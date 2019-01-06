@@ -1,6 +1,9 @@
 package toutpret.isep.com.toutpret.commandes;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -9,6 +12,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +30,7 @@ import java.util.List;
 
 import toutpret.isep.com.toutpret.R;
 import toutpret.isep.com.toutpret.login_sinup.LoginActivity;
+import toutpret.isep.com.toutpret.map.DialogFragmentMap;
 import toutpret.isep.com.toutpret.models.Commandes;
 import toutpret.isep.com.toutpret.panier.PanierRecyclerViewAdapter;
 
@@ -50,6 +56,22 @@ public class CommandesActivity extends AppCompatActivity {
         myAdapter = new RecyclerViewCommandesAdapter(this, listCommandes);
         myrv.setLayoutManager(new GridLayoutManager(this, 1));
         myrv.setAdapter(myAdapter);
+
+        Button map = findViewById(R.id.client_commande_status);
+
+        map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                if (prev != null) {
+                    ft.remove(prev);
+                }
+                ft.addToBackStack(null);
+                DialogFragment dialogFragment = new DialogFragmentMap();
+                dialogFragment.show(ft, "Map");
+            }
+        });
     }
 
     private void getCommandes() {
