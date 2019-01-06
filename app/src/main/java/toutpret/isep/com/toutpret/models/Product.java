@@ -4,20 +4,24 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
 public class Product {
-    public String id;
     public String name;
-    public Long quantity;
+    public Long stock;
     public String categoryId;
     public int thumbnail;
+    public double price;
+
+    public int quantity;
+    public String id;
 
     public Product() {
     }
 
-    public Product(String name, Long quantity, String categoryId, int thumbnail) {
+    public Product(String name, Long stock, String categoryId, int thumbnail, double price) {
         this.name = name;
-        this.quantity = quantity;
+        this.stock = stock;
         this.categoryId = categoryId;
         this.thumbnail = thumbnail;
+        this.price = price;
     }
 
     public void setId(String id) {
@@ -26,6 +30,22 @@ public class Product {
 
     public String getId() {
         return id;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public Long getStock() {
+        return stock;
+    }
+
+    public void setStock(Long stock) {
+        this.stock = stock;
     }
 
     public String getCategoryId() {
@@ -44,11 +64,11 @@ public class Product {
         this.name = name;
     }
 
-    public Long getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Long quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
