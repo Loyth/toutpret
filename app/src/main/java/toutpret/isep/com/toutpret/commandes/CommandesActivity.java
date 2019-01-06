@@ -19,6 +19,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import toutpret.isep.com.toutpret.R;
@@ -59,6 +61,13 @@ public class CommandesActivity extends AppCompatActivity {
                 Commandes newCommande = dataSnapshot.getValue(Commandes.class);
 
                 listCommandes.add(newCommande);
+
+                Collections.sort(listCommandes, new Comparator<Commandes>() {
+                    public int compare(Commandes o1, Commandes o2) {
+                        return o2.getDate().compareTo(o1.getDate());
+                    }
+                });
+
                 myAdapter.notifyDataSetChanged();
             }
 
