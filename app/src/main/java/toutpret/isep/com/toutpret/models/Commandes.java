@@ -1,14 +1,18 @@
 package toutpret.isep.com.toutpret.models;
 
-public class Commandes {
-    private int numeroCommande;
-    private int nbArticles;
-    private String date;
+import java.util.List;
 
-    public Commandes(int numeroCommande, int nbArticles, String date) {
+public class Commandes {
+    private String date;
+    private String userId;
+    private Long numeroCommande;
+    private List<ProductPanier> listProducts;
+
+    public Commandes(Long numeroCommande, List<ProductPanier> listProducts, String date, String userId) {
         this.numeroCommande = numeroCommande;
-        this.nbArticles = nbArticles;
         this.date = date;
+        this.userId = userId;
+        this.listProducts = listProducts;
     }
 
     public String getDate() {
@@ -19,20 +23,27 @@ public class Commandes {
         this.date = date;
     }
 
-    public int getNumeroCommande() {
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public Long getNumeroCommande() {
         return numeroCommande;
     }
 
-
-    public void setNumeroCommande(int numeroCommande) {
+    public void setNumeroCommande(Long numeroCommande) {
         this.numeroCommande = numeroCommande;
     }
 
-    public int getNbArticles() {
-        return nbArticles;
+    public List<ProductPanier> getListProducts() {
+        return listProducts;
     }
 
-    public void setNbArticles(int nbArticles) {
-        this.nbArticles = nbArticles;
+    public void setListProducts(List<ProductPanier> listProducts) {
+        this.listProducts = listProducts;
     }
 }

@@ -159,5 +159,15 @@ public class FragmentFruits extends Fragment implements FragmentInterface {
             }
         }
     }
+
+    @Override
+    public void resetProducts() {
+        for (Product product : listProducts) {
+            int position = listProducts.indexOf(product);
+
+            listProducts.get(position).setQuantity(0);
+            myAdapter.notifyItemChanged(position);
+        }
+    }
 }
 

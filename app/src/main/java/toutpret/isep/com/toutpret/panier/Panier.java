@@ -71,4 +71,13 @@ public class Panier {
     public static void addFragment(FragmentInterface f) {
         listFragments.add(f);
     }
+
+    public static void clean() {
+        TOTAL_AMOUNT = 0.0;
+        listProducts = new ArrayList<>();
+
+        for (FragmentInterface f : listFragments) {
+            f.resetProducts();
+        }
+    }
 }

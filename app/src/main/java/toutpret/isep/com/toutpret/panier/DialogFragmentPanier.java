@@ -1,11 +1,12 @@
 package toutpret.isep.com.toutpret.panier;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +15,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import toutpret.isep.com.toutpret.R;
+import toutpret.isep.com.toutpret.models.Commandes;
 import toutpret.isep.com.toutpret.models.ProductPanier;
 
 public class DialogFragmentPanier extends DialogFragment {
@@ -73,9 +83,7 @@ public class DialogFragmentPanier extends DialogFragment {
         commander.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "Commande envoyée !", Toast.LENGTH_SHORT).show();
-
-                sendCommand();
+                sendCommand(products);
                 parent.dismiss();
             }
         });
@@ -95,7 +103,41 @@ public class DialogFragmentPanier extends DialogFragment {
         }
     }
 
-    public void sendCommand() {
-        
+    public void sendCommand(List<ProductPanier> products) {
+        final List<ProductPanier> listProducts = products;
+        final DialogFragment parent = this;
+        final DatabaseReference numberCommandReference = mDatabase.getReference("numberCommand");
+
+        final Activity activity = getActivity();
+
+        numberCommandReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Long number = dataSnapshot.getValue(Long.class);
+
+                DatabaseReference commandesDatabase = mDatabase.getReference("commandes").push();
+
+                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.FRANCE);
+                Date date = new Date();
+
+                Commandes commande = new Commandes(number, listProducts, dateFormat.format(date), auth.getUid());
+
+                commandesDatabase.setValue(commande);
+
+                Toast.makeText(activity, "Commande envoyée !", Toast.LENGTH_LONG).show();
+
+                numberCommandReference.setValue(number + 1);
+
+                Panier.clean();
+                parent.dismiss();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Failed to read value
+            }
+        });
+
+
     }
 }
