@@ -1,22 +1,22 @@
-package toutpret.isep.com.toutpret.orderpicker;
+package toutpret.isep.com.toutpret.models;
 
 public class Commandes {
     private int numeroCommande;
     private int nbArticles;
-    private int Thumbnail;
+    private String date;
 
-    public Commandes(int numeroCommande, int nbArticles, int thumbnail) {
+    public Commandes(int numeroCommande, int nbArticles, String date) {
         this.numeroCommande = numeroCommande;
         this.nbArticles = nbArticles;
-        Thumbnail = thumbnail;
+        this.date = date;
     }
 
-    public int getThumbnail() {
-        return Thumbnail;
+    public String getDate() {
+        return date;
     }
 
-    public void setThumbnail(int thumbnail) {
-        Thumbnail = thumbnail;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public int getNumeroCommande() {

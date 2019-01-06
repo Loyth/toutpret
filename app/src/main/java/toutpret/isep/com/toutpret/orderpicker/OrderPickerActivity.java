@@ -13,7 +13,6 @@ import toutpret.isep.com.toutpret.login_sinup.LoginActivity;
 public class OrderPickerActivity extends AppCompatActivity {
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

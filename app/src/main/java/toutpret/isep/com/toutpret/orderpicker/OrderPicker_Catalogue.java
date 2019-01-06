@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import toutpret.isep.com.toutpret.R;
-import toutpret.isep.com.toutpret.categories.RecyclerViewAdapter;
 import toutpret.isep.com.toutpret.login_sinup.LoginActivity;
 import toutpret.isep.com.toutpret.models.Category;
 
@@ -30,7 +29,7 @@ public class OrderPicker_Catalogue extends AppCompatActivity {
     private List<Category> listCategory;
     private FirebaseDatabase mDatabase;
     private FirebaseAuth auth;
-    private RecyclerViewAdapter myAdapter;
+    //private RecyclerViewAdapter myAdapter;
 
 
     @Override
@@ -47,9 +46,9 @@ public class OrderPicker_Catalogue extends AppCompatActivity {
         getCategories();
 
         RecyclerView myrv = findViewById(R.id.category_recyclerview_id);
-        myAdapter = new RecyclerViewAdapter(this, listCategory);
+        //myAdapter = new RecyclerViewAdapter(this, listCategory);
         myrv.setLayoutManager(new GridLayoutManager(this, 2));
-        myrv.setAdapter(myAdapter);
+        //myrv.setAdapter(myAdapter);
 
     }
 
@@ -61,7 +60,7 @@ public class OrderPicker_Catalogue extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 Category newCategory = dataSnapshot.getValue(Category.class);
                 listCategory.add(newCategory);
-                myAdapter.notifyDataSetChanged();
+               // myAdapter.notifyDataSetChanged();
             }
 
             @Override
