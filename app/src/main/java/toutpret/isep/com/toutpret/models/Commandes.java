@@ -1,7 +1,10 @@
 package toutpret.isep.com.toutpret.models;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.util.HashMap;
 
+@IgnoreExtraProperties
 public class Commandes {
     private String date;
     private String userId;
@@ -13,6 +16,10 @@ public class Commandes {
         this.date = date;
         this.userId = userId;
         this.listProducts = listProducts;
+    }
+
+    public Commandes() {
+
     }
 
     public String getDate() {

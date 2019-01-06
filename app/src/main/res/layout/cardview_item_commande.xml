@@ -24,7 +24,10 @@
                 android:layout_gravity="left"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="5dp" />
+                android:layout_marginRight="5dp"
+                android:text="test"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/orderpicker_nbArticles"
@@ -32,7 +35,9 @@
                 android:layout_height="35dp"
                 android:layout_gravity="left"
                 android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="15dp" />
+                android:layout_marginTop="15dp"
+                android:text="test"
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/orderpicker_dateCommande"
@@ -40,7 +45,10 @@
                 android:layout_height="35dp"
                 android:layout_gravity="left"
                 android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="15dp" />
+                android:layout_marginTop="15dp"
+                android:text="test"
+                android:textSize="15dp"
+                android:textStyle="italic" />
 
         </LinearLayout>
 
@@ -51,7 +59,8 @@
             android:layout_gravity="center"
             android:layout_marginStart="10dp"
             android:gravity="center"
-            android:text="Détails" />
+            android:text="Détails"
+            android:textAlignment="center" />
 
         <Space
             android:layout_width="0dp"
@@ -64,7 +73,8 @@
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="etat" />
+            android:text="etat"
+            android:textAlignment="center" />
     </LinearLayout>
 
 
