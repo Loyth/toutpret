@@ -1,14 +1,14 @@
 package toutpret.isep.com.toutpret.models;
 
-import java.util.List;
+import java.util.HashMap;
 
 public class Commandes {
     private String date;
     private String userId;
     private Long numeroCommande;
-    private List<ProductPanier> listProducts;
+    private HashMap<Integer, ProductPanier> listProducts;
 
-    public Commandes(Long numeroCommande, List<ProductPanier> listProducts, String date, String userId) {
+    public Commandes(Long numeroCommande, HashMap<Integer, ProductPanier> listProducts, String date, String userId) {
         this.numeroCommande = numeroCommande;
         this.date = date;
         this.userId = userId;
@@ -39,11 +39,11 @@ public class Commandes {
         this.numeroCommande = numeroCommande;
     }
 
-    public List<ProductPanier> getListProducts() {
+    public HashMap<Integer, ProductPanier> getListProducts() {
         return listProducts;
     }
 
-    public void setListProducts(List<ProductPanier> listProducts) {
+    public void setListProducts(HashMap<Integer, ProductPanier> listProducts) {
         this.listProducts = listProducts;
     }
 }
