@@ -59,10 +59,10 @@ public class OrderPicker_Commandes extends AppCompatActivity {
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                Commandes newCommandes = dataSnapshot.getValue(Commandes.class);
+                Commandes newCommande = dataSnapshot.getValue(Commandes.class);
 
-                listCommande.add(newCommandes);
-                Log.v("Commande1", "index=" + newCommandes.getNumeroCommande());
+                listCommande.add(newCommande);
+                Log.v("Commande1", "index=" + newCommande.getNumeroCommande());
                 myAdapter.notifyDataSetChanged();
             }
 

@@ -124,7 +124,7 @@ public class DialogFragmentPanier extends DialogFragment {
                 HashMap<String, ProductPanier> map = new HashMap<>();
 
                 for (int i = 0; i < listProducts.size(); i++) {
-                    map.put(String.valueOf(i), listProducts.get(i));
+                    map.put("ID" + String.valueOf(i), listProducts.get(i));
                 }
 
                 Commandes commande = new Commandes(number, map, dateFormat.format(date), auth.getUid());
