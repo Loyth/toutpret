@@ -60,7 +60,6 @@ public class OrderPicker_Commandes extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 Commandes newCommandes = dataSnapshot.getValue(Commandes.class);
-                newCommandes.setNumeroCommande(dataSnapshot.getKey());
 
                 listCommande.add(newCommandes);
                 Log.v("Commande1", "index=" + newCommandes.getNumeroCommande());
@@ -71,7 +70,6 @@ public class OrderPicker_Commandes extends AppCompatActivity {
             public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
 
                 Commandes commandesChanged = dataSnapshot.getValue(Commandes.class);
-                commandesChanged.setNumeroCommande(dataSnapshot.getKey());
 
                 for (Commandes commandes : listCommande) {
                     if (commandes.getNumeroCommande().equals(commandesChanged.getNumeroCommande())) {
