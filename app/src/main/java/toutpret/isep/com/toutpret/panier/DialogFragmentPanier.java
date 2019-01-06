@@ -127,7 +127,7 @@ public class DialogFragmentPanier extends DialogFragment {
                     map.put("ID" + String.valueOf(i), listProducts.get(i));
                 }
 
-                Commandes commande = new Commandes(number, map, dateFormat.format(date), auth.getUid());
+                Commandes commande = new Commandes(number, map, dateFormat.format(date), auth.getUid(), "Envoyée");
 
                 commandesDatabase.setValue(commande);
 

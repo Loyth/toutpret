@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import toutpret.isep.com.toutpret.R;
+import toutpret.isep.com.toutpret.commandes.CommandesActivity;
 import toutpret.isep.com.toutpret.login_sinup.LoginActivity;
 import toutpret.isep.com.toutpret.models.Category;
 
@@ -87,6 +88,16 @@ public class CategoriesActivity extends AppCompatActivity {
                 auth.signOut();
                 Toast.makeText(getApplicationContext(), "Déconnexion réussie !", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                return true;
+            }
+        });
+
+        MenuItem commandes = menu.findItem(R.id.action_take_away);
+
+        commandes.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                startActivity(new Intent(getApplicationContext(), CommandesActivity.class));
                 return true;
             }
         });

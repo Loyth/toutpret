@@ -9,17 +9,27 @@ public class Commandes {
     private String date;
     private String userId;
     private Long numeroCommande;
+    private String status;
     private HashMap<String, ProductPanier> listProducts;
 
-    public Commandes(Long numeroCommande, HashMap<String, ProductPanier> listProducts, String date, String userId) {
+    public Commandes(Long numeroCommande, HashMap<String, ProductPanier> listProducts, String date, String userId, String status) {
         this.numeroCommande = numeroCommande;
         this.date = date;
         this.userId = userId;
         this.listProducts = listProducts;
+        this.status = status;
     }
 
     public Commandes() {
 
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     public String getDate() {

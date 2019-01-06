@@ -12,8 +12,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
+import toutpret.isep.com.toutpret.categories.CategoriesActivity;
 import toutpret.isep.com.toutpret.login_sinup.LoginActivity;
-import toutpret.isep.com.toutpret.orderpicker.OrderPickerActivity;
 import toutpret.isep.com.toutpret.products.ProductsActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser user = auth.getCurrentUser();
 
         if (user != null) {
-            startActivity(new Intent(getApplicationContext(), OrderPickerActivity.class));
+            startActivity(new Intent(getApplicationContext(), CategoriesActivity.class));
         } else {
             Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(loginActivity);
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser user = auth.getCurrentUser();
 
         if (user != null) {
-            startActivity(new Intent(getApplicationContext(), OrderPickerActivity.class));
+            startActivity(new Intent(getApplicationContext(), CategoriesActivity.class));
         } else {
             Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(loginActivity);
