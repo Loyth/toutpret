@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import toutpret.isep.com.toutpret.R;
-import toutpret.isep.com.toutpret.ViewPagerAdapter;
+import toutpret.isep.com.toutpret.products.ViewPagerAdapter;
 import toutpret.isep.com.toutpret.login_sinup.LoginActivity;
 import toutpret.isep.com.toutpret.models.Category;
 import toutpret.isep.com.toutpret.products.FragmentBeignets;
