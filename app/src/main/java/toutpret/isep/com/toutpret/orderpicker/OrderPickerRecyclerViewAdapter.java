@@ -9,13 +9,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.util.List;
-
 import toutpret.isep.com.toutpret.R;
-import toutpret.isep.com.toutpret.categories.RecyclerViewAdapter;
 
-public class OrderPickerRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>  {
+public class OrderPickerRecyclerViewAdapter extends RecyclerView.Adapter<OrderPickerRecyclerViewAdapter.MyViewHolder>  {
 
 
     private Context mContext;
@@ -29,32 +26,24 @@ public class OrderPickerRecyclerViewAdapter extends RecyclerView.Adapter<Recycle
 
     @NonNull
     @Override
-    public RecyclerViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
         view = mInflater.inflate(R.layout.cardview_item_commande , viewGroup, false);
 
-        return new RecyclerViewAdapter.MyViewHolder(view);
+        return new MyViewHolder(view);
 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerViewAdapter.MyViewHolder myViewHolder, int i) {
+    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
 
-
-        //myViewHolder.tv_category_titleNC.setText(mData.get(i));
-        //myViewHolder.tv_category_titleNA.setText(mData.get(i));
-
-    }
-
-   // @Override
-    public void onBindViewHolder(MyViewHolder myViewHolder, int i) {
 
         myViewHolder.tv_category_titleNC.setText(mData.get(i));
         myViewHolder.tv_category_titleNA.setText(mData.get(i));
 
-
     }
+
 
     @Override
     public int getItemCount() {
@@ -65,6 +54,8 @@ public class OrderPickerRecyclerViewAdapter extends RecyclerView.Adapter<Recycle
         TextView tv_category_titleNC;
         TextView tv_category_titleNA;
         Button etat_button;
+        Button etat_details;
+
 
 
         public MyViewHolder(View itemView) {
@@ -73,6 +64,8 @@ public class OrderPickerRecyclerViewAdapter extends RecyclerView.Adapter<Recycle
             tv_category_titleNC = itemView.findViewById(R.id.orderpicker_numeroCommande);
             tv_category_titleNA = itemView.findViewById(R.id.orderpicker_nbArticles);
             etat_button = itemView.findViewById(R.id.button_etat);
+            etat_details= itemView.findViewById(R.id.button_details);
+
 
         }
     }
