@@ -6,9 +6,9 @@ public class Commandes {
     private String date;
     private String userId;
     private Long numeroCommande;
-    private HashMap<Integer, ProductPanier> listProducts;
+    private HashMap<String, ProductPanier> listProducts;
 
-    public Commandes(Long numeroCommande, HashMap<Integer, ProductPanier> listProducts, String date, String userId) {
+    public Commandes(Long numeroCommande, HashMap<String, ProductPanier> listProducts, String date, String userId) {
         this.numeroCommande = numeroCommande;
         this.date = date;
         this.userId = userId;
@@ -39,11 +39,11 @@ public class Commandes {
         this.numeroCommande = numeroCommande;
     }
 
-    public HashMap<Integer, ProductPanier> getListProducts() {
+    public HashMap<String, ProductPanier> getListProducts() {
         return listProducts;
     }
 
-    public void setListProducts(HashMap<Integer, ProductPanier> listProducts) {
+    public void setListProducts(HashMap<String, ProductPanier> listProducts) {
         this.listProducts = listProducts;
     }
 }

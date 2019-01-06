@@ -121,10 +121,10 @@ public class DialogFragmentPanier extends DialogFragment {
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.FRANCE);
                 Date date = new Date();
 
-                HashMap<Integer, ProductPanier> map = new HashMap<>();
+                HashMap<String, ProductPanier> map = new HashMap<>();
 
                 for (int i = 0; i < listProducts.size(); i++) {
-                    map.put(i, listProducts.get(i));
+                    map.put(String.valueOf(i), listProducts.get(i));
                 }
 
                 Commandes commande = new Commandes(number, map, dateFormat.format(date), auth.getUid());
