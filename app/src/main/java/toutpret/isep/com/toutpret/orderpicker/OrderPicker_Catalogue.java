@@ -1,6 +1,9 @@
 package toutpret.isep.com.toutpret.orderpicker;
 
 import android.content.Intent;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -21,15 +24,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import toutpret.isep.com.toutpret.R;
+import toutpret.isep.com.toutpret.ViewPagerAdapter;
 import toutpret.isep.com.toutpret.login_sinup.LoginActivity;
 import toutpret.isep.com.toutpret.models.Category;
+import toutpret.isep.com.toutpret.products.FragmentBeignets;
+import toutpret.isep.com.toutpret.products.FragmentBoissons;
+import toutpret.isep.com.toutpret.products.FragmentCrepes;
+import toutpret.isep.com.toutpret.products.FragmentFruits;
+import toutpret.isep.com.toutpret.products.FragmentGaufres;
+import toutpret.isep.com.toutpret.products.FragmentGlaces;
 
 public class OrderPicker_Catalogue extends AppCompatActivity {
+    private TabLayout tablayout;
+    private ViewPager viewPager;
 
-    private List<Category> listCategory;
     private FirebaseDatabase mDatabase;
     private FirebaseAuth auth;
-    //private RecyclerViewAdapter myAdapter;
+
+    private ViewPagerAdapter adapter;
 
 
     @Override
@@ -37,45 +49,30 @@ public class OrderPicker_Catalogue extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_picker__catalogue);
 
+        tablayout = findViewById(R.id.tablayout_id);
+        viewPager = findViewById(R.id.viewpager_id);
+
         auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();
 
-        listCategory = new ArrayList<>();
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Tout Prêt");
+        actionBar.setElevation(0);
 
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        getCategories();
+        adapter.AddFragment(new FragmentFruits(), "Fruits");
+        adapter.AddFragment(new FragmentCrepes(), "Crêpes");
+        adapter.AddFragment(new FragmentGaufres(), "Gaufres");
+        adapter.AddFragment(new FragmentBeignets(), "Beignets");
+        adapter.AddFragment(new FragmentGlaces(), "Glaces");
+        adapter.AddFragment(new FragmentBoissons(), "Boissons");
 
-        RecyclerView myrv = findViewById(R.id.category_recyclerview_id);
-        //myAdapter = new RecyclerViewAdapter(this, listCategory);
-        myrv.setLayoutManager(new GridLayoutManager(this, 2));
-        //myrv.setAdapter(myAdapter);
+        viewPager.setAdapter(adapter);
+        tablayout.setupWithViewPager(viewPager);
 
     }
 
-    private void getCategories() {
-        DatabaseReference myRef = mDatabase.getReference("categories");
-
-        myRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                Category newCategory = dataSnapshot.getValue(Category.class);
-                listCategory.add(newCategory);
-               // myAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {}
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {}
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {}
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

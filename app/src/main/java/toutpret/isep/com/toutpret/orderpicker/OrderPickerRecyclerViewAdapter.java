@@ -9,16 +9,23 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import java.util.Calendar;
+
+import java.util.Date;
 import java.util.List;
 import toutpret.isep.com.toutpret.R;
+import toutpret.isep.com.toutpret.models.Commandes;
+import toutpret.isep.com.toutpret.models.Product;
 
 public class OrderPickerRecyclerViewAdapter extends RecyclerView.Adapter<OrderPickerRecyclerViewAdapter.MyViewHolder>  {
 
 
     private Context mContext;
-    private List<String> mData;
+    private List<Commandes> mData;
 
-    public OrderPickerRecyclerViewAdapter(Context mContext, List mData) {
+    Date currentTime = Calendar.getInstance().getTime();
+
+    public OrderPickerRecyclerViewAdapter(Context mContext, List<Commandes>  mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
@@ -39,8 +46,10 @@ public class OrderPickerRecyclerViewAdapter extends RecyclerView.Adapter<OrderPi
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
 
 
-        myViewHolder.tv_category_titleNC.setText(mData.get(i));
-        myViewHolder.tv_category_titleNA.setText(mData.get(i));
+        myViewHolder.tv_category_titleNC.setText("Commande n° "+mData.get(i).getNumeroCommande());
+        //myViewHolder.tv_category_titleNA.setText(" Nombre d'articles "+mData.get(i).getNbArticles());
+        myViewHolder.tv_category_titleDate.setText("Commandé il y a : " +mData.get(i).getDate());
+
 
     }
 
@@ -53,6 +62,7 @@ public class OrderPickerRecyclerViewAdapter extends RecyclerView.Adapter<OrderPi
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tv_category_titleNC;
         TextView tv_category_titleNA;
+        TextView tv_category_titleDate;
         Button etat_button;
         Button etat_details;
 
@@ -63,6 +73,8 @@ public class OrderPickerRecyclerViewAdapter extends RecyclerView.Adapter<OrderPi
 
             tv_category_titleNC = itemView.findViewById(R.id.orderpicker_numeroCommande);
             tv_category_titleNA = itemView.findViewById(R.id.orderpicker_nbArticles);
+            tv_category_titleDate = itemView.findViewById(R.id.orderpicker_dateCommande);
+
             etat_button = itemView.findViewById(R.id.button_etat);
             etat_details= itemView.findViewById(R.id.button_details);
 

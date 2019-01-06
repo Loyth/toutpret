@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".orderpicker.OrderPicker_Commandes"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:scrollbars="vertical"
+    android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/orderpicker_commande_recyclerview_id"

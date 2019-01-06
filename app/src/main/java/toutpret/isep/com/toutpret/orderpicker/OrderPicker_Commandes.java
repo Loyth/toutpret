@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,6 +26,7 @@ import toutpret.isep.com.toutpret.categories.CategoryRecyclerViewAdapter;
 import toutpret.isep.com.toutpret.login_sinup.LoginActivity;
 import toutpret.isep.com.toutpret.models.Category;
 import toutpret.isep.com.toutpret.models.Commandes;
+import toutpret.isep.com.toutpret.models.Product;
 
 public class OrderPicker_Commandes extends AppCompatActivity {
 
@@ -41,30 +43,47 @@ public class OrderPicker_Commandes extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();
-
         listCommande = new ArrayList<>();
 
-        getCommandes();
+        getCommandes("1");
 
         RecyclerView myrv = findViewById(R.id.orderpicker_commande_recyclerview_id);
         myAdapter = new OrderPickerRecyclerViewAdapter(this, listCommande);
-        myrv.setLayoutManager(new GridLayoutManager(this, 2));
+        myrv.setLayoutManager(new GridLayoutManager(this, 1));
         myrv.setAdapter(myAdapter);
     }
 
-    private void getCommandes() {
+    private void getCommandes(String numeroCommande) {
         DatabaseReference myRef = mDatabase.getReference("commandes");
 
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 Commandes newCommandes = dataSnapshot.getValue(Commandes.class);
+                newCommandes.setNumeroCommande(dataSnapshot.getKey());
+
                 listCommande.add(newCommandes);
+                Log.v("Commande1", "index=" + newCommandes.getNumeroCommande());
                 myAdapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {}
+            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
+
+                Commandes commandesChanged = dataSnapshot.getValue(Commandes.class);
+                commandesChanged.setNumeroCommande(dataSnapshot.getKey());
+
+                for (Commandes commandes : listCommande) {
+                    if (commandes.getNumeroCommande().equals(commandesChanged.getNumeroCommande())) {
+                        int position = listCommande.indexOf(commandes);
+
+                        listCommande.set(position, commandesChanged);
+                        myAdapter.notifyItemChanged(position);
+
+                        return;
+                    }
+                }
+            }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {}
@@ -75,26 +94,5 @@ public class OrderPicker_Commandes extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-
-        MenuItem logout = menu.findItem(R.id.action_logout);
-
-        logout.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                auth.signOut();
-                Toast.makeText(getApplicationContext(), "Déconnexion réussie !", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                return true;
-            }
-        });
-
-        return true;
     }
 }
