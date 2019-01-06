@@ -29,7 +29,7 @@ public class CategoriesActivity extends AppCompatActivity {
     private List<Category> listCategory;
     private FirebaseDatabase mDatabase;
     private FirebaseAuth auth;
-    private RecyclerViewAdapter myAdapter;
+    private CategoryRecyclerViewAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class CategoriesActivity extends AppCompatActivity {
         getCategories();
 
         RecyclerView myrv = findViewById(R.id.category_recyclerview_id);
-        myAdapter = new RecyclerViewAdapter(this, listCategory);
+        myAdapter = new CategoryRecyclerViewAdapter(this, listCategory);
         myrv.setLayoutManager(new GridLayoutManager(this, 2));
         myrv.setAdapter(myAdapter);
     }

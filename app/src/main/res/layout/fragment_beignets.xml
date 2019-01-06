@@ -7,7 +7,7 @@
     android:padding="8dp">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/category_recyclerview_id"
+        android:id="@+id/beignets_recyclerview_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

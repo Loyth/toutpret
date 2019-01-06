@@ -16,7 +16,6 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         super(fm);
     }
 
-
     @Override
     public Fragment getItem(int position) {
         return fragmentList.get(position);
@@ -25,7 +24,6 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return FragmentListTitles.size();
-
     }
 
     @Override
@@ -36,6 +34,5 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     public void AddFragment(Fragment fragment, String Title) {
         fragmentList.add(fragment);
         FragmentListTitles.add(Title);
-
     }
 }

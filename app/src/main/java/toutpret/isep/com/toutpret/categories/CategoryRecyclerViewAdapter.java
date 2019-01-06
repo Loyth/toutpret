@@ -15,12 +15,12 @@ import java.util.List;
 import toutpret.isep.com.toutpret.R;
 import toutpret.isep.com.toutpret.models.Category;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
+public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRecyclerViewAdapter.MyViewHolder> {
     private Context mContext;
     private List<Category> mData;
     ArrayList<Integer> imgs;
 
-    public RecyclerViewAdapter(Context mContext, List<Category> mData) {
+    public CategoryRecyclerViewAdapter(Context mContext, List<Category> mData) {
         this.mContext = mContext;
         this.mData = mData;
 
