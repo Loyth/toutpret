@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -55,6 +56,33 @@ public class ProductsActivity extends AppCompatActivity {
 
         viewPager.setAdapter(adapter);
         tablayout.setupWithViewPager(viewPager);
+
+        String category = getIntent().getStringExtra("category");
+
+        Log.i("userFirebase", category);
+
+        switch (category) {
+            case "Fruits":
+                tablayout.getTabAt(0).select();
+                break;
+            case "Crêpes":
+                tablayout.getTabAt(1).select();
+                break;
+            case "Gaufres":
+                tablayout.getTabAt(2).select();
+                break;
+            case "Beignets":
+                tablayout.getTabAt(3).select();
+                break;
+            case "Glaces":
+                tablayout.getTabAt(4).select();
+                break;
+            case "Boissons":
+                tablayout.getTabAt(5).select();
+                break;
+            default:
+                break;
+        }
     }
 
     @Override

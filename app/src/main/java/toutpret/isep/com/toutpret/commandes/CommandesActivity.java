@@ -1,9 +1,9 @@
 package toutpret.isep.com.toutpret.commandes;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -32,7 +32,6 @@ import toutpret.isep.com.toutpret.R;
 import toutpret.isep.com.toutpret.login_sinup.LoginActivity;
 import toutpret.isep.com.toutpret.map.DialogFragmentMap;
 import toutpret.isep.com.toutpret.models.Commandes;
-import toutpret.isep.com.toutpret.panier.PanierRecyclerViewAdapter;
 
 public class CommandesActivity extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
@@ -53,25 +52,13 @@ public class CommandesActivity extends AppCompatActivity {
         getCommandes();
 
         RecyclerView myrv = findViewById(R.id.commande_recyclerview_id);
-        myAdapter = new RecyclerViewCommandesAdapter(this, listCommandes);
+        myAdapter = new RecyclerViewCommandesAdapter(this, listCommandes, getSupportFragmentManager());
         myrv.setLayoutManager(new GridLayoutManager(this, 1));
         myrv.setAdapter(myAdapter);
 
         Button map = findViewById(R.id.client_commande_status);
 
-        map.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                Fragment prev = getFragmentManager().findFragmentByTag("dialog");
-                if (prev != null) {
-                    ft.remove(prev);
-                }
-                ft.addToBackStack(null);
-                DialogFragment dialogFragment = new DialogFragmentMap();
-                dialogFragment.show(ft, "Map");
-            }
-        });
+        final Activity activity = this;
     }
 
     private void getCommandes() {

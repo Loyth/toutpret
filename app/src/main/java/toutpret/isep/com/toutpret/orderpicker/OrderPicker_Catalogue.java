@@ -1,38 +1,28 @@
 package toutpret.isep.com.toutpret.orderpicker;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import toutpret.isep.com.toutpret.R;
-import toutpret.isep.com.toutpret.products.ViewPagerAdapter;
 import toutpret.isep.com.toutpret.login_sinup.LoginActivity;
-import toutpret.isep.com.toutpret.models.Category;
 import toutpret.isep.com.toutpret.products.FragmentBeignets;
 import toutpret.isep.com.toutpret.products.FragmentBoissons;
 import toutpret.isep.com.toutpret.products.FragmentCrepes;
 import toutpret.isep.com.toutpret.products.FragmentFruits;
 import toutpret.isep.com.toutpret.products.FragmentGaufres;
 import toutpret.isep.com.toutpret.products.FragmentGlaces;
+import toutpret.isep.com.toutpret.products.ViewPagerAdapter;
 
 public class OrderPicker_Catalogue extends AppCompatActivity {
     private TabLayout tablayout;

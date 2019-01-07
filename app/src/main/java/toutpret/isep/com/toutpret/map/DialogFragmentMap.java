@@ -1,15 +1,19 @@
 package toutpret.isep.com.toutpret.map;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.DialogFragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.maps.MapView;
+
 import toutpret.isep.com.toutpret.R;
 
 public class DialogFragmentMap extends DialogFragment {
@@ -19,6 +23,10 @@ public class DialogFragmentMap extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Mapbox.getInstance(getContext(), "pk.eyJ1IjoiaGljaGVtYWRkIiwiYSI6ImNqcWw4aGN4ZjB6NG40M25uMmgxYjNzZzIifQ.h8eqs-0JnQoOFVYIOzl4dw");
+
+        //WindowManager.LayoutParams wmlp = getDialog().getWindow().getAttributes();
+        // wmlp.gravity = Gravity.FILL_HORIZONTAL;
+
         return inflater.inflate(R.layout.fragment_map, container, false);
     }
 
