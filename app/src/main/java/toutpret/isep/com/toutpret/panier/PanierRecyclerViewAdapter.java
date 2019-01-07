@@ -28,8 +28,11 @@ public class PanierRecyclerViewAdapter extends RecyclerView.Adapter<PanierRecycl
         this.panier = panier;
 
         imgs = new ArrayList<>();
-        imgs.add(R.drawable.apple);
-        imgs.add(R.drawable.viennoiserie);
+        imgs.add(R.drawable.fruits);
+        imgs.add(R.drawable.crepe);
+        imgs.add(R.drawable.gaufres);
+        imgs.add(R.drawable.beignet);
+        imgs.add(R.drawable.glace);
         imgs.add(R.drawable.boissons);
     }
 
