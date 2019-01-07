@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import toutpret.isep.com.toutpret.Profil.ProfilActivity;
 import toutpret.isep.com.toutpret.R;
 import toutpret.isep.com.toutpret.commandes.CommandesActivity;
 import toutpret.isep.com.toutpret.login_sinup.LoginActivity;
@@ -93,6 +94,7 @@ public class CategoriesActivity extends AppCompatActivity {
         });
 
         MenuItem commandes = menu.findItem(R.id.action_take_away);
+        MenuItem profile = menu.findItem(R.id.action_sun);
 
         commandes.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
@@ -101,6 +103,15 @@ public class CategoriesActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        profile.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                startActivity(new Intent(getApplicationContext(), ProfilActivity.class));
+                return true;
+            }
+        });
+
 
         return true;
     }

@@ -63,6 +63,8 @@ public class SignUpActivity extends AppCompatActivity {
                 final String firstName = inputFirstName.getText().toString().trim();
                 final String phone = inputPhoneNumber.getText().toString().trim();
 
+                String MobilePattern = "[0-9]{10}";
+
 
                 String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
@@ -84,6 +86,13 @@ public class SignUpActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(firstName)) {
                     Toast.makeText(getApplicationContext(), "Entrez votre prénom !", Toast.LENGTH_SHORT).show();
                     return;
+                }
+
+                if(!inputPhoneNumber.getText().toString().matches(MobilePattern)) {
+
+                    Toast.makeText(getApplicationContext(), "Verifiez votre numéro de téléphone", Toast.LENGTH_SHORT).show();
+                    return;
+
                 }
 
                 if (TextUtils.isEmpty(phone)) {
