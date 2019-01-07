@@ -82,6 +82,7 @@ public class FragmentFruits extends Fragment implements FragmentInterface {
                 }
                 ft.addToBackStack(null);
                 DialogFragment dialogFragment = new DialogFragmentPanier();
+
                 dialogFragment.show(ft, "Mon panier");
             }
         });

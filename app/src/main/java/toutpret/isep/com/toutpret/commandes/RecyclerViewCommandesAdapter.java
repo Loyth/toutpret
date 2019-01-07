@@ -1,6 +1,8 @@
 package toutpret.isep.com.toutpret.commandes;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -60,6 +62,45 @@ public class RecyclerViewCommandesAdapter extends RecyclerView.Adapter<RecyclerV
 
         myViewHolder.date_commande.setText("Commandée le " + mData.get(i).getDate());
 
+        myViewHolder.status.setText(mData.get(i).getStatus());
+
+        switch (myViewHolder.status.getText().toString()) {
+            case "P":
+                myViewHolder.status.setEnabled(false);
+                myViewHolder.status.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#9E9E9E")));
+                break;
+            case "En livraison":
+                myViewHolder.status.setEnabled(true);
+                myViewHolder.status.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF9800")));
+                break;
+            case "Livrée":
+                myViewHolder.status.setEnabled(false);
+                myViewHolder.status.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#4CAF50")));
+                break;
+            default:
+                myViewHolder.status.setEnabled(true);
+        }
+
+        switch (myViewHolder.status.getText().toString()) {
+            case "En préparation":
+                myViewHolder.status.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#9E9E9E")));
+                myViewHolder.status.setText("En préparation");
+                myViewHolder.status.setEnabled(false);
+                break;
+            case "Prête":
+                myViewHolder.status.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#9E9E9E")));
+                myViewHolder.status.setText("En préparation");
+                myViewHolder.status.setEnabled(false);
+            case "En livraison":
+                myViewHolder.status.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#9E9E9E")));
+                myViewHolder.status.setText("En livraison");
+                myViewHolder.status.setEnabled(true);
+            case "Livrée":
+                myViewHolder.status.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#9E9E9E")));
+                myViewHolder.status.setText("Livrée");
+                myViewHolder.status.setEnabled(false);
+                break;
+        }
 
         myViewHolder.status.setOnClickListener(new View.OnClickListener() {
             @Override

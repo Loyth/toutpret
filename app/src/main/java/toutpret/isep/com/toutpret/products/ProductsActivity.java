@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 import toutpret.isep.com.toutpret.R;
+import toutpret.isep.com.toutpret.commandes.CommandesActivity;
 import toutpret.isep.com.toutpret.login_sinup.LoginActivity;
 
 public class ProductsActivity extends AppCompatActivity {
@@ -28,7 +29,6 @@ public class ProductsActivity extends AppCompatActivity {
     private FirebaseAuth auth;
 
     private ViewPagerAdapter adapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +58,6 @@ public class ProductsActivity extends AppCompatActivity {
         tablayout.setupWithViewPager(viewPager);
 
         String category = getIntent().getStringExtra("category");
-
-        Log.i("userFirebase", category);
 
         switch (category) {
             case "Fruits":
@@ -102,7 +100,16 @@ public class ProductsActivity extends AppCompatActivity {
             }
         });
 
+        MenuItem commandes = menu.findItem(R.id.action_take_away);
+
+        commandes.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                startActivity(new Intent(getApplicationContext(), CommandesActivity.class));
+                return true;
+            }
+        });
+
         return true;
     }
-
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -55,10 +56,6 @@ public class CommandesActivity extends AppCompatActivity {
         myAdapter = new RecyclerViewCommandesAdapter(this, listCommandes, getSupportFragmentManager());
         myrv.setLayoutManager(new GridLayoutManager(this, 1));
         myrv.setAdapter(myAdapter);
-
-        Button map = findViewById(R.id.client_commande_status);
-
-        final Activity activity = this;
     }
 
     private void getCommandes() {
