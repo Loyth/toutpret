@@ -29,8 +29,11 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
         this.mData = mData;
 
         imgs = new ArrayList<>();
-        imgs.add(R.drawable.apple);
-        imgs.add(R.drawable.viennoiserie);
+        imgs.add(R.drawable.fruits);
+        imgs.add(R.drawable.crepe);
+        imgs.add(R.drawable.gaufres);
+        imgs.add(R.drawable.beignet);
+        imgs.add(R.drawable.glace);
         imgs.add(R.drawable.boissons);
     }
 
