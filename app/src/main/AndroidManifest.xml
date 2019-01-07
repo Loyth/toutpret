@@ -28,9 +28,10 @@
         <activity android:name=".orderpicker.OrderPicker_Catalogue" />
         <activity android:name=".orderpicker.OrderPicker_Commandes" />
         <activity android:name=".commandes.CommandesActivity" />
-        <activity android:name=".Profil.ProfilActivity"></activity>
+        <activity android:name=".profil.ProfilActivity" />
         <activity android:name=".commandes.CommandesActivity" />
-        <activity android:name=".livreur.LivreurActivity"></activity>
+        <activity android:name=".livreur.LivreurActivity" />
+        <activity android:name=".map.MapActivity"></activity>
     </application>
 
 </manifest>

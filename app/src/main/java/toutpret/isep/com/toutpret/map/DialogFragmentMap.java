@@ -1,6 +1,7 @@
 package toutpret.isep.com.toutpret.map;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -15,16 +16,25 @@ import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Icon;
 import com.mapbox.mapboxsdk.annotations.IconFactory;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
+import com.mapbox.mapboxsdk.camera.CameraPosition;
+import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 
 import toutpret.isep.com.toutpret.MainActivity;
 import toutpret.isep.com.toutpret.R;
+import toutpret.isep.com.toutpret.models.Commandes;
 
 public class DialogFragmentMap extends DialogFragment {
     private MapView mapView;
+    private Commandes commande;
+
+    public void setCommande(Commandes commande) {
+        this.commande = commande;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,12 +61,7 @@ public class DialogFragmentMap extends DialogFragment {
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(MapboxMap mapboxMap) {
-                IconFactory iconFactory = IconFactory.getInstance(getContext());
-                Icon icon = iconFactory.fromResource(R.drawable.towel_small);
 
-                mapboxMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(48.13863, 11.57603))
-                        .icon(icon));
             }
         });
         return view;
@@ -68,4 +73,13 @@ public class DialogFragmentMap extends DialogFragment {
         mapView.onStart();
     }
 
+    private void getLivreur() {
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mapView.onStop();
+    }
 }

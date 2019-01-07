@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                     MY_PERMISSIONS_REQUEST_LOCATION);
             return false;
         } else {
-            startActivity(new Intent(getApplicationContext(), LivreurActivity.class));
+            startActivity(new Intent(getApplicationContext(), CategoriesActivity.class));
             return true;
         }
     }
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                     if (ContextCompat.checkSelfPermission(this,
                             Manifest.permission.ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
-                        startActivity(new Intent(getApplicationContext(), LivreurActivity.class));
+                        startActivity(new Intent(getApplicationContext(), CategoriesActivity.class));
                     }
                 } else {
                     auth.signOut();

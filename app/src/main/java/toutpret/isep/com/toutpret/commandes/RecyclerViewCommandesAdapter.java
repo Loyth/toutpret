@@ -1,6 +1,7 @@
 package toutpret.isep.com.toutpret.commandes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -19,9 +20,11 @@ import java.util.List;
 
 import toutpret.isep.com.toutpret.R;
 import toutpret.isep.com.toutpret.map.DialogFragmentMap;
+import toutpret.isep.com.toutpret.map.MapActivity;
 import toutpret.isep.com.toutpret.models.Commandes;
 import toutpret.isep.com.toutpret.models.ProductPanier;
 import toutpret.isep.com.toutpret.panier.DialogFragmentPanier;
+import toutpret.isep.com.toutpret.products.ProductsActivity;
 
 public class RecyclerViewCommandesAdapter extends RecyclerView.Adapter<RecyclerViewCommandesAdapter.MyViewHolder> {
     private Context mContext;
@@ -91,12 +94,14 @@ public class RecyclerViewCommandesAdapter extends RecyclerView.Adapter<RecyclerV
                 myViewHolder.status.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#9E9E9E")));
                 myViewHolder.status.setText("En préparation");
                 myViewHolder.status.setEnabled(false);
+                break;
             case "En livraison":
-                myViewHolder.status.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#9E9E9E")));
+                myViewHolder.status.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF9800")));
                 myViewHolder.status.setText("En livraison");
                 myViewHolder.status.setEnabled(true);
+                break;
             case "Livrée":
-                myViewHolder.status.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#9E9E9E")));
+                myViewHolder.status.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#4CAF50")));
                 myViewHolder.status.setText("Livrée");
                 myViewHolder.status.setEnabled(false);
                 break;
@@ -105,8 +110,11 @@ public class RecyclerViewCommandesAdapter extends RecyclerView.Adapter<RecyclerV
         myViewHolder.status.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment dialogFragment = new DialogFragmentMap();
-                dialogFragment.show(manager, "Map");
+                Intent mapActivity = new Intent(view.getContext(), MapActivity.class);
+
+                MapActivity.setCommande(mData.get(i));
+
+                view.getContext().startActivity(mapActivity);
             }
         });
     }

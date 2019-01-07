@@ -158,7 +158,7 @@ public class DialogFragmentPanier extends DialogFragment {
                         String latitude = String.valueOf(location.getLatitude());
                         String longitude = String.valueOf(location.getLongitude());
 
-                        Commandes commande = new Commandes(number, map, dateFormat.format(date), auth.getUid(), "En préparation", latitude, longitude);
+                        Commandes commande = new Commandes(number, map, dateFormat.format(date), auth.getUid(), "En préparation", latitude, longitude, "null", "null");
                         commandesDatabase.setValue(commande);
                         Toast.makeText(activity, "Commande envoyée !", Toast.LENGTH_LONG).show();
                         numberCommandReference.setValue(number + 1);

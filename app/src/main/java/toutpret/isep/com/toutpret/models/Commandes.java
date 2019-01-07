@@ -2,10 +2,11 @@ package toutpret.isep.com.toutpret.models;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 @IgnoreExtraProperties
-public class Commandes {
+public class Commandes implements Serializable {
     private String date;
     private String userId;
     private Long numeroCommande;
@@ -18,7 +19,7 @@ public class Commandes {
     private String livreurLat;
     private String livreurLng;
 
-    public Commandes(Long numeroCommande, HashMap<String, ProductPanier> listProducts, String date, String userId, String status, String userLat, String userLng) {
+    public Commandes(Long numeroCommande, HashMap<String, ProductPanier> listProducts, String date, String userId, String status, String userLat, String userLng, String livreurLat, String livreurLng) {
         this.numeroCommande = numeroCommande;
         this.date = date;
         this.userId = userId;
@@ -26,6 +27,8 @@ public class Commandes {
         this.status = status;
         this.userLat = userLat;
         this.userLng = userLng;
+        this.livreurLat = livreurLat;
+        this.livreurLng = livreurLng;
     }
 
     public Commandes() {
