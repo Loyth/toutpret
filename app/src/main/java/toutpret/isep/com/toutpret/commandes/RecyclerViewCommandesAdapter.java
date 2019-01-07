@@ -65,7 +65,7 @@ public class RecyclerViewCommandesAdapter extends RecyclerView.Adapter<RecyclerV
         myViewHolder.status.setText(mData.get(i).getStatus());
 
         switch (myViewHolder.status.getText().toString()) {
-            case "En attente":
+            case "P":
                 myViewHolder.status.setEnabled(false);
                 myViewHolder.status.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#9E9E9E")));
                 break;
@@ -79,6 +79,27 @@ public class RecyclerViewCommandesAdapter extends RecyclerView.Adapter<RecyclerV
                 break;
             default:
                 myViewHolder.status.setEnabled(true);
+        }
+
+        switch (myViewHolder.status.getText().toString()) {
+            case "En préparation":
+                myViewHolder.status.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#9E9E9E")));
+                myViewHolder.status.setText("En préparation");
+                myViewHolder.status.setEnabled(false);
+                break;
+            case "Prête":
+                myViewHolder.status.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#9E9E9E")));
+                myViewHolder.status.setText("En préparation");
+                myViewHolder.status.setEnabled(false);
+            case "En livraison":
+                myViewHolder.status.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#9E9E9E")));
+                myViewHolder.status.setText("En livraison");
+                myViewHolder.status.setEnabled(true);
+            case "Livrée":
+                myViewHolder.status.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#9E9E9E")));
+                myViewHolder.status.setText("Livrée");
+                myViewHolder.status.setEnabled(false);
+                break;
         }
 
         myViewHolder.status.setOnClickListener(new View.OnClickListener() {

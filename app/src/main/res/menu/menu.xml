@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_sun"
-        android:icon="@drawable/ic_action_sun"
+        android:icon="@drawable/logo"
         android:title="@string/action_sun"
         app:showAsAction="always" />
     <item

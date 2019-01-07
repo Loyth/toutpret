@@ -1,12 +1,23 @@
 package toutpret.isep.com.toutpret.panier;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,9 +50,18 @@ public class DialogFragmentPanier extends DialogFragment {
     private TextView panierVide;
     private TextView totalAmount;
     private List<ProductPanier> products;
+    private LocationManager locationManager;
+    private String provider;
+    private Context mContext;
 
     public static DialogFragmentPanier newInstance() {
         return new DialogFragmentPanier();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.mContext = context;
     }
 
     @Override
@@ -127,15 +147,27 @@ public class DialogFragmentPanier extends DialogFragment {
                     map.put("ID" + String.valueOf(i), listProducts.get(i));
                 }
 
-                Commandes commande = new Commandes(number, map, dateFormat.format(date), auth.getUid(), "En attente");
+                if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+                    Criteria criteria = new Criteria();
+                    provider = locationManager.getBestProvider(criteria, false);
 
-                commandesDatabase.setValue(commande);
+                    Location location = locationManager.getLastKnownLocation(provider);
 
-                Toast.makeText(activity, "Commande envoyée !", Toast.LENGTH_LONG).show();
+                    if (location != null) {
+                        String latitude = String.valueOf(location.getLatitude());
+                        String longitude = String.valueOf(location.getLongitude());
 
-                numberCommandReference.setValue(number + 1);
+                        Commandes commande = new Commandes(number, map, dateFormat.format(date), auth.getUid(), "En préparation", latitude, longitude);
+                        commandesDatabase.setValue(commande);
+                        Toast.makeText(activity, "Commande envoyée !", Toast.LENGTH_LONG).show();
+                        numberCommandReference.setValue(number + 1);
+                        Panier.clean();
+                    } else {
+                        Toast.makeText(activity, "Position GPS indisponible, commande non envoyée !", Toast.LENGTH_LONG).show();
+                    }
+                }
 
-                Panier.clean();
                 parent.dismiss();
             }
 
