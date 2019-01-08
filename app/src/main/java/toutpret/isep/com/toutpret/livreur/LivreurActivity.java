@@ -76,33 +76,6 @@ public class LivreurActivity extends AppCompatActivity {
 
         viewPager.setAdapter(myAdapter);
         tablayout.setupWithViewPager(viewPager);
-
-        tablayout.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                /*switch (tab.getText().toString()) {
-                    case "Prêtes":
-                        commandesPretes.syncCommandes();
-                        break;
-                    case "En livraison":
-                        commandesLivraison.syncCommandes();
-                        break;
-                    case "Livrées":
-                        commandesLivrees.syncCommandes();
-                        break;
-                }*/
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
     }
 
     @Override

@@ -14,12 +14,12 @@ public class Commandes implements Serializable {
     private HashMap<String, ProductPanier> listProducts;
     private String commandId;
     private String livreurId;
-    private String userLat;
-    private String userLng;
-    private String livreurLat;
-    private String livreurLng;
+    private double userLat;
+    private double userLng;
+    private double livreurLat;
+    private double livreurLng;
 
-    public Commandes(Long numeroCommande, HashMap<String, ProductPanier> listProducts, String date, String userId, String status, String userLat, String userLng, String livreurLat, String livreurLng) {
+    public Commandes(Long numeroCommande, HashMap<String, ProductPanier> listProducts, String date, String userId, String status, double userLat, double userLng, double livreurLat, double livreurLng) {
         this.numeroCommande = numeroCommande;
         this.date = date;
         this.userId = userId;
@@ -33,62 +33,6 @@ public class Commandes implements Serializable {
 
     public Commandes() {
 
-    }
-
-    public void setCommandId(String commandId) {
-        this.commandId = commandId;
-    }
-
-    public String getCommandId() {
-        return commandId;
-    }
-
-    public String getLivreurId() {
-        return livreurId;
-    }
-
-    public void setLivreurId(String livreurId) {
-        this.livreurId = livreurId;
-    }
-
-    public String getUserLat() {
-        return userLat;
-    }
-
-    public void setUserLat(String userLat) {
-        this.userLat = userLat;
-    }
-
-    public String getUserLng() {
-        return userLng;
-    }
-
-    public void setUserLng(String userLng) {
-        this.userLng = userLng;
-    }
-
-    public String getLivreurLat() {
-        return livreurLat;
-    }
-
-    public void setLivreurLat(String livreurLat) {
-        this.livreurLat = livreurLat;
-    }
-
-    public String getLivreurLng() {
-        return livreurLng;
-    }
-
-    public void setLivreurLng(String livreurLng) {
-        this.livreurLng = livreurLng;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getStatus() {
-        return status;
     }
 
     public String getDate() {
@@ -115,11 +59,67 @@ public class Commandes implements Serializable {
         this.numeroCommande = numeroCommande;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public HashMap<String, ProductPanier> getListProducts() {
         return listProducts;
     }
 
     public void setListProducts(HashMap<String, ProductPanier> listProducts) {
         this.listProducts = listProducts;
+    }
+
+    public String getCommandId() {
+        return commandId;
+    }
+
+    public void setCommandId(String commandId) {
+        this.commandId = commandId;
+    }
+
+    public String getLivreurId() {
+        return livreurId;
+    }
+
+    public void setLivreurId(String livreurId) {
+        this.livreurId = livreurId;
+    }
+
+    public double getUserLat() {
+        return userLat;
+    }
+
+    public void setUserLat(double userLat) {
+        this.userLat = userLat;
+    }
+
+    public double getUserLng() {
+        return userLng;
+    }
+
+    public void setUserLng(double userLng) {
+        this.userLng = userLng;
+    }
+
+    public double getLivreurLat() {
+        return livreurLat;
+    }
+
+    public void setLivreurLat(double livreurLat) {
+        this.livreurLat = livreurLat;
+    }
+
+    public double getLivreurLng() {
+        return livreurLng;
+    }
+
+    public void setLivreurLng(double livreurLng) {
+        this.livreurLng = livreurLng;
     }
 }

@@ -1,7 +1,12 @@
 package toutpret.isep.com.toutpret.products;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -10,15 +15,18 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 
+import toutpret.isep.com.toutpret.Profil.ProfilActivity;
 import toutpret.isep.com.toutpret.R;
 import toutpret.isep.com.toutpret.commandes.CommandesActivity;
 import toutpret.isep.com.toutpret.login_sinup.LoginActivity;
+import toutpret.isep.com.toutpret.panier.DialogFragmentPanier;
 
 public class ProductsActivity extends AppCompatActivity {
 
@@ -81,6 +89,17 @@ public class ProductsActivity extends AppCompatActivity {
             default:
                 break;
         }
+
+        FloatingActionButton panier = findViewById(R.id.products_panier);
+
+        panier.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = getSupportFragmentManager();
+                DialogFragment dialogFragment = new DialogFragmentPanier();
+                dialogFragment.show(fm, "Mon panier");
+            }
+        });
     }
 
     @Override
@@ -101,11 +120,20 @@ public class ProductsActivity extends AppCompatActivity {
         });
 
         MenuItem commandes = menu.findItem(R.id.action_take_away);
+        MenuItem profile = menu.findItem(R.id.action_sun);
 
         commandes.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 startActivity(new Intent(getApplicationContext(), CommandesActivity.class));
+                return true;
+            }
+        });
+
+        profile.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                startActivity(new Intent(getApplicationContext(), ProfilActivity.class));
                 return true;
             }
         });

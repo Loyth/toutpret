@@ -29,6 +29,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import toutpret.isep.com.toutpret.Profil.ProfilActivity;
 import toutpret.isep.com.toutpret.R;
 import toutpret.isep.com.toutpret.login_sinup.LoginActivity;
 import toutpret.isep.com.toutpret.map.DialogFragmentMap;
@@ -65,6 +66,7 @@ public class CommandesActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 Commandes newCommande = dataSnapshot.getValue(Commandes.class);
+                newCommande.setCommandId(dataSnapshot.getKey());
 
                 listCommandes.add(newCommande);
 
@@ -80,6 +82,7 @@ public class CommandesActivity extends AppCompatActivity {
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
                 Commandes commandesChanged = dataSnapshot.getValue(Commandes.class);
+                commandesChanged.setCommandId(dataSnapshot.getKey());
 
                 for (Commandes commandes : listCommandes) {
                     if (commandes.getNumeroCommande().equals(commandesChanged.getNumeroCommande())) {
@@ -117,6 +120,16 @@ public class CommandesActivity extends AppCompatActivity {
                 auth.signOut();
                 Toast.makeText(getApplicationContext(), "Déconnexion réussie !", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                return true;
+            }
+        });
+
+        MenuItem profile = menu.findItem(R.id.action_sun);
+
+        profile.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                startActivity(new Intent(getApplicationContext(), ProfilActivity.class));
                 return true;
             }
         });

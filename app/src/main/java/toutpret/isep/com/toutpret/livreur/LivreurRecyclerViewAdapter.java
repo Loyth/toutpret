@@ -3,6 +3,7 @@ package toutpret.isep.com.toutpret.livreur;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -40,6 +41,7 @@ import java.util.List;
 
 import toutpret.isep.com.toutpret.R;
 import toutpret.isep.com.toutpret.map.DialogFragmentMap;
+import toutpret.isep.com.toutpret.map.MapActivity;
 import toutpret.isep.com.toutpret.models.Commandes;
 import toutpret.isep.com.toutpret.models.ProductPanier;
 import toutpret.isep.com.toutpret.models.User;
@@ -102,8 +104,8 @@ public class LivreurRecyclerViewAdapter extends RecyclerView.Adapter<LivreurRecy
                             Location location = locationManager.getLastKnownLocation(provider);
 
                             if (location != null) {
-                                String latitude = String.valueOf(location.getLatitude());
-                                String longitude = String.valueOf(location.getLongitude());
+                                double latitude = location.getLatitude();
+                                double longitude = location.getLongitude();
 
                                 updateData.child("livreurLat").setValue(latitude);
                                 updateData.child("livreurLng").setValue(longitude);
@@ -127,8 +129,13 @@ public class LivreurRecyclerViewAdapter extends RecyclerView.Adapter<LivreurRecy
                 myViewHolder.status.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        // open the MAP
+                        Intent mapActivity = new Intent(view.getContext(), MapActivity.class);
 
+                        MapActivity.setCommande(mData.get(i));
+
+                        mapActivity.putExtra("userType", "livreur");
+
+                        view.getContext().startActivity(mapActivity);
                     }
                 });
                 break;

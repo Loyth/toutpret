@@ -114,6 +114,8 @@ public class RecyclerViewCommandesAdapter extends RecyclerView.Adapter<RecyclerV
 
                 MapActivity.setCommande(mData.get(i));
 
+                mapActivity.putExtra("userType", "client");
+
                 view.getContext().startActivity(mapActivity);
             }
         });

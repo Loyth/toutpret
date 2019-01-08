@@ -132,7 +132,6 @@ public class CategoriesActivity extends AppCompatActivity {
             }
         });
 
-
         return true;
     }
 }

@@ -68,7 +68,7 @@ public class FragmentGlaces extends Fragment implements FragmentInterface {
         myrv.setLayoutManager(new GridLayoutManager(getContext(), 1));
         myrv.setAdapter(myAdapter);
 
-        panier = view.findViewById(R.id.glaces_panier);
+        /*panier = view.findViewById(R.id.glaces_panier);
 
         panier.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +83,7 @@ public class FragmentGlaces extends Fragment implements FragmentInterface {
                 dialogFragment.show(ft, "Mon panier");
             }
         });
-
+*/
         return view;
     }
 

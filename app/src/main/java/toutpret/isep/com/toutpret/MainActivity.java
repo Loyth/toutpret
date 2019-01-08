@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -17,12 +19,19 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import toutpret.isep.com.toutpret.categories.CategoriesActivity;
 import toutpret.isep.com.toutpret.commandes.CommandesActivity;
 import toutpret.isep.com.toutpret.livreur.LivreurActivity;
 import toutpret.isep.com.toutpret.login_sinup.LoginActivity;
+import toutpret.isep.com.toutpret.models.User;
+import toutpret.isep.com.toutpret.orderpicker.OrderPickerActivity;
 import toutpret.isep.com.toutpret.products.ProductsActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -92,6 +101,45 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    public void redirectUser() {
+        DatabaseReference myRef = mDatabase.getReference("users");
+
+        myRef.orderByChild("userID").equalTo(auth.getUid()).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                User user = dataSnapshot.getValue(User.class);
+
+                if (user.getType().equals("client")) {
+                    startActivity(new Intent(getApplicationContext(), CategoriesActivity.class));
+                } else if (user.getType().equals("livreur")) {
+                    startActivity(new Intent(getApplicationContext(), LivreurActivity.class));
+                } else if (user.getType().equals("order_picker")) {
+                    startActivity(new Intent(getApplicationContext(), OrderPickerActivity.class));
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     public boolean checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
@@ -101,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
                     MY_PERMISSIONS_REQUEST_LOCATION);
             return false;
         } else {
-            startActivity(new Intent(getApplicationContext(), CategoriesActivity.class));
+            redirectUser();
             return true;
         }
     }
@@ -114,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
                     if (ContextCompat.checkSelfPermission(this,
                             Manifest.permission.ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
-                        startActivity(new Intent(getApplicationContext(), CategoriesActivity.class));
+                        redirectUser();
                     }
                 } else {
                     auth.signOut();

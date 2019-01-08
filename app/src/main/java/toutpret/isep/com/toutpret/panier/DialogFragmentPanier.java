@@ -43,6 +43,8 @@ import toutpret.isep.com.toutpret.R;
 import toutpret.isep.com.toutpret.models.Commandes;
 import toutpret.isep.com.toutpret.models.ProductPanier;
 
+import static com.mapbox.mapboxsdk.Mapbox.getApplicationContext;
+
 public class DialogFragmentPanier extends DialogFragment {
     private FirebaseDatabase mDatabase;
     private FirebaseAuth auth;
@@ -147,25 +149,19 @@ public class DialogFragmentPanier extends DialogFragment {
                     map.put("ID" + String.valueOf(i), listProducts.get(i));
                 }
 
-                if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
-                    Criteria criteria = new Criteria();
-                    provider = locationManager.getBestProvider(criteria, false);
+                Location location = getLastKnownLocation();
 
-                    Location location = locationManager.getLastKnownLocation(provider);
+                if (location != null) {
+                    double latitude = location.getLatitude();
+                    double longitude = location.getLongitude();
 
-                    if (location != null) {
-                        String latitude = String.valueOf(location.getLatitude());
-                        String longitude = String.valueOf(location.getLongitude());
-
-                        Commandes commande = new Commandes(number, map, dateFormat.format(date), auth.getUid(), "En préparation", latitude, longitude, "null", "null");
-                        commandesDatabase.setValue(commande);
-                        Toast.makeText(activity, "Commande envoyée !", Toast.LENGTH_LONG).show();
-                        numberCommandReference.setValue(number + 1);
-                        Panier.clean();
-                    } else {
-                        Toast.makeText(activity, "Position GPS indisponible, commande non envoyée !", Toast.LENGTH_LONG).show();
-                    }
+                    Commandes commande = new Commandes(number, map, dateFormat.format(date), auth.getUid(), "En préparation", latitude, longitude, 0.0, 0.0);
+                    commandesDatabase.setValue(commande);
+                    Toast.makeText(activity, "Commande envoyée !", Toast.LENGTH_LONG).show();
+                    numberCommandReference.setValue(number + 1);
+                    Panier.clean();
+                } else {
+                    Toast.makeText(activity, "Position GPS indisponible, commande non envoyée !", Toast.LENGTH_LONG).show();
                 }
 
                 parent.dismiss();
@@ -176,7 +172,26 @@ public class DialogFragmentPanier extends DialogFragment {
                 // Failed to read value
             }
         });
+    }
 
+    private Location getLastKnownLocation() {
+        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+            List<String> providers = locationManager.getProviders(true);
+            Location bestLocation = null;
+            for (String provider : providers) {
+                Location l = locationManager.getLastKnownLocation(provider);
+                if (l == null) {
+                    continue;
+                }
+                if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
+                    // Found best last known location: %s", l);
+                    bestLocation = l;
+                }
+            }
+            return bestLocation;
+        }
 
+        return null;
     }
 }

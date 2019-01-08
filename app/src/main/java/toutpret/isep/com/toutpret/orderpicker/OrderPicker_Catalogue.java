@@ -60,7 +60,6 @@ public class OrderPicker_Catalogue extends AppCompatActivity {
 
         viewPager.setAdapter(adapter);
         tablayout.setupWithViewPager(viewPager);
-
     }
 
 

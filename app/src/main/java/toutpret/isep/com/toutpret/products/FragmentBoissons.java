@@ -68,7 +68,7 @@ public class FragmentBoissons extends Fragment implements FragmentInterface {
         myrv.setLayoutManager(new GridLayoutManager(getContext(), 1));
         myrv.setAdapter(myAdapter);
 
-        panier = view.findViewById(R.id.boissons_panier);
+        /*panier = view.findViewById(R.id.boissons_panier);
 
         panier.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +82,7 @@ public class FragmentBoissons extends Fragment implements FragmentInterface {
                 DialogFragment dialogFragment = new DialogFragmentPanier();
                 dialogFragment.show(ft, "Mon panier");
             }
-        });
+        });*/
 
         return view;
     }
