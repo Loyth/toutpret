@@ -41,6 +41,7 @@ public class FragmentFruits extends Fragment implements FragmentInterface {
 
     public FragmentFruits() {
         Panier.addFragment(this);
+        listProducts = new ArrayList<>();
     }
 
     @Nullable
@@ -57,8 +58,6 @@ public class FragmentFruits extends Fragment implements FragmentInterface {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_fruits, container, false);
-
-        listProducts = new ArrayList<>();
 
         auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();

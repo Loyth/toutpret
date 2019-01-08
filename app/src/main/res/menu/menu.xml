@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_sun"
-        android:icon="@drawable/logo"
+        android:icon="@drawable/sun"
         android:title="@string/action_sun"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_take_away"
-        android:icon="@drawable/ic_action_take_away"
+        android:icon="@drawable/bag"
         android:title="@string/action_take_away"
         app:showAsAction="always" />
     <item

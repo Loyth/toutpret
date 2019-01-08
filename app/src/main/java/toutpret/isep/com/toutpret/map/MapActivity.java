@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,6 +48,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private static Commandes commande = null;
     private Marker markeurLivreur;
     private Marker markeurClient;
+    private String userType;
 
     public static void setCommande(Commandes commande) {
         MapActivity.commande = commande;
@@ -59,7 +62,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         setContentView(R.layout.activity_map);
 
-        getSupportActionBar().setTitle("Suivre votre commande");
+        userType = getIntent().getStringExtra("userType");
+
+        Log.i("userFirebase", userType);
+
+        if (userType.equals("client")) {
+            getSupportActionBar().setTitle("Suivre votre commande");
+        } else {
+            getSupportActionBar().setTitle("Livrer la commande");
+        }
 
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
@@ -70,6 +81,22 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, locationListenerGPS);
         }
 
+        Button valideButton = findViewById(R.id.map_valide_button);
+
+        if (userType.equals("client")) {
+            valideButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    DatabaseReference updateData = FirebaseDatabase.getInstance().getReference("commandes").child(commande.getCommandId());
+                    updateData.child("status").setValue("Livrée");
+                    Toast.makeText(getApplicationContext(), "Bon appétit !", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(getApplicationContext(), CommandesActivity.class));
+                }
+            });
+        } else {
+            valideButton.setVisibility(View.GONE);
+        }
+
     }
 
     LocationListener locationListenerGPS = new LocationListener() {
@@ -78,8 +105,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             if (commande != null) {
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
-
-                String userType = getIntent().getStringExtra("userType");
 
                 DatabaseReference updateData = FirebaseDatabase.getInstance().getReference("commandes").child(commande.getCommandId());
 
@@ -133,10 +158,20 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 double livreurLatitude = Double.valueOf(commande.getLivreurLat());
                 double livreurLongitude = Double.valueOf(commande.getLivreurLng());
 
-                CameraPosition position = new CameraPosition.Builder()
-                        .target(new LatLng(livreurLatitude, livreurLongitude))
-                        .zoom(17)
-                        .build();
+                CameraPosition position;
+
+                if (userType.equals("client")) {
+                     position = new CameraPosition.Builder()
+                            .target(new LatLng(livreurLatitude, livreurLongitude))
+                            .zoom(17)
+                            .build();
+                } else {
+                    position = new CameraPosition.Builder()
+                            .target(new LatLng(clientLatitude, clientLongitude))
+                            .zoom(17)
+                            .build();
+                }
+
 
                 mapboxMap.setCameraPosition(position);
 
@@ -186,9 +221,37 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
 
-        MenuItem logout = menu.findItem(R.id.action_logout);
+        MenuItem logout;
+
+        if (userType.equals("client")) {
+            inflater.inflate(R.menu.menu, menu);
+
+            MenuItem commandes = menu.findItem(R.id.action_take_away);
+            MenuItem profile = menu.findItem(R.id.action_sun);
+
+            logout = menu.findItem(R.id.action_logout);
+
+            commandes.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem menuItem) {
+                    startActivity(new Intent(getApplicationContext(), CommandesActivity.class));
+                    return true;
+                }
+            });
+
+            profile.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem menuItem) {
+                    startActivity(new Intent(getApplicationContext(), ProfilActivity.class));
+                    return true;
+                }
+            });
+        } else {
+            inflater.inflate(R.menu.menu_livreur, menu);
+
+            logout = menu.findItem(R.id.livreur_action_logout);
+        }
 
         logout.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
@@ -196,25 +259,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(getApplicationContext(), "Déconnexion réussie !", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                return true;
-            }
-        });
-
-        MenuItem commandes = menu.findItem(R.id.action_take_away);
-        MenuItem profile = menu.findItem(R.id.action_sun);
-
-        commandes.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                startActivity(new Intent(getApplicationContext(), CommandesActivity.class));
-                return true;
-            }
-        });
-
-        profile.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                startActivity(new Intent(getApplicationContext(), ProfilActivity.class));
                 return true;
             }
         });

@@ -20,6 +20,7 @@
         android:layout_gravity="end|bottom"
         android:backgroundTint="#03A9F4"
         android:clickable="true"
+        app:fabSize="normal"
         android:src="@drawable/ic_shopping_basket_black_24dp"
         android:layout_margin="16dp" />
 

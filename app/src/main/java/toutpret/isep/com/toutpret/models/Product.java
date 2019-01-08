@@ -7,7 +7,7 @@ public class Product {
     public String name;
     public Long stock;
     public String categoryId;
-    public int thumbnail;
+    public String imageURL;
     public double price;
 
     public int quantity;
@@ -16,11 +16,11 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, Long stock, String categoryId, int thumbnail, double price) {
+    public Product(String name, Long stock, String categoryId, String imageURL, double price) {
         this.name = name;
         this.stock = stock;
         this.categoryId = categoryId;
-        this.thumbnail = thumbnail;
+        this.imageURL = imageURL;
         this.price = price;
     }
 
@@ -72,11 +72,11 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public int getThumbnail() {
-        return thumbnail;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public void setThumbnail(int thumbnail) {
-        this.thumbnail = thumbnail;
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 }

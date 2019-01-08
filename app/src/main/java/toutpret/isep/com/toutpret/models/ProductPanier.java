@@ -8,15 +8,25 @@ public class ProductPanier {
     public String name;
     public int quantity;
     public double price;
+    public String productId;
 
     public ProductPanier() {
     }
 
-    public ProductPanier(String id, String name, int quantity, Double price) {
+    public ProductPanier(String id, String name, int quantity, Double price, String productId) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
         this.price = price;
+        this.productId = productId;
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
 
     public String getId() {

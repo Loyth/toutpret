@@ -1,29 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".orderpicker.OrderPickerActivity">
+    android:orientation="vertical"
+    tools:context=".orderpicker.OrderPickerActivity"
+    android:padding="10dp">
 
     <Button
         android:id="@+id/button_commande"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="11dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp"
         android:text="Gérer les commandes"
-        android:textSize="12sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/button_catalogue"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:drawableTop="@drawable/operator"
+        android:paddingTop="40dp"
+        android:backgroundTint="#80CBC4"
+        android:layout_weight="1"/>
 
     <Button
         android:id="@+id/button_catalogue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="114dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:text="Gérer le catalogue"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-</android.support.constraint.ConstraintLayout>
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp"
+        android:paddingTop="40dp"
+        android:drawableTop="@drawable/warehouse"
+        android:backgroundTint="#80DEEA"
+        android:layout_weight="1"/>
+</LinearLayout>

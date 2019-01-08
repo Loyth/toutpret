@@ -16,12 +16,12 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import toutpret.isep.com.toutpret.R;
 import toutpret.isep.com.toutpret.login_sinup.LoginActivity;
-import toutpret.isep.com.toutpret.products.FragmentBeignets;
-import toutpret.isep.com.toutpret.products.FragmentBoissons;
-import toutpret.isep.com.toutpret.products.FragmentCrepes;
-import toutpret.isep.com.toutpret.products.FragmentFruits;
-import toutpret.isep.com.toutpret.products.FragmentGaufres;
-import toutpret.isep.com.toutpret.products.FragmentGlaces;
+import toutpret.isep.com.toutpret.orderpicker.fragmentsCatalogue.FragmentOrderPickerBeignets;
+import toutpret.isep.com.toutpret.orderpicker.fragmentsCatalogue.FragmentOrderPickerBoissons;
+import toutpret.isep.com.toutpret.orderpicker.fragmentsCatalogue.FragmentOrderPickerCrepes;
+import toutpret.isep.com.toutpret.orderpicker.fragmentsCatalogue.FragmentOrderPickerFruits;
+import toutpret.isep.com.toutpret.orderpicker.fragmentsCatalogue.FragmentOrderPickerGaufres;
+import toutpret.isep.com.toutpret.orderpicker.fragmentsCatalogue.FragmentOrderPickerGlaces;
 import toutpret.isep.com.toutpret.products.ViewPagerAdapter;
 
 public class OrderPicker_Catalogue extends AppCompatActivity {
@@ -39,24 +39,23 @@ public class OrderPicker_Catalogue extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_picker__catalogue);
 
-        tablayout = findViewById(R.id.tablayout_id);
-        viewPager = findViewById(R.id.viewpager_id);
+        tablayout = findViewById(R.id.orderpicker_tablayout_id);
+        viewPager = findViewById(R.id.orderpicker_viewpager_id);
 
         auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Tout Prêt");
         actionBar.setElevation(0);
 
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        adapter.AddFragment(new FragmentFruits(), "Fruits");
-        adapter.AddFragment(new FragmentCrepes(), "Crêpes");
-        adapter.AddFragment(new FragmentGaufres(), "Gaufres");
-        adapter.AddFragment(new FragmentBeignets(), "Beignets");
-        adapter.AddFragment(new FragmentGlaces(), "Glaces");
-        adapter.AddFragment(new FragmentBoissons(), "Boissons");
+        adapter.AddFragment(new FragmentOrderPickerFruits(), "Fruits");
+        adapter.AddFragment(new FragmentOrderPickerCrepes(), "Crêpes");
+        adapter.AddFragment(new FragmentOrderPickerGaufres(), "Gaufres");
+        adapter.AddFragment(new FragmentOrderPickerBeignets(), "Beignets");
+        adapter.AddFragment(new FragmentOrderPickerGlaces(), "Glaces");
+        adapter.AddFragment(new FragmentOrderPickerBoissons(), "Boissons");
 
         viewPager.setAdapter(adapter);
         tablayout.setupWithViewPager(viewPager);
@@ -66,9 +65,9 @@ public class OrderPicker_Catalogue extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
+        inflater.inflate(R.menu.menu_livreur, menu);
 
-        MenuItem logout = menu.findItem(R.id.action_logout);
+        MenuItem logout = menu.findItem(R.id.livreur_action_logout);
 
         logout.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override

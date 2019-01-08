@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,7 +41,9 @@ import java.util.List;
 import java.util.Locale;
 
 import toutpret.isep.com.toutpret.R;
+import toutpret.isep.com.toutpret.commandes.CommandesActivity;
 import toutpret.isep.com.toutpret.models.Commandes;
+import toutpret.isep.com.toutpret.models.Product;
 import toutpret.isep.com.toutpret.models.ProductPanier;
 
 import static com.mapbox.mapboxsdk.Mapbox.getApplicationContext;
@@ -159,6 +162,12 @@ public class DialogFragmentPanier extends DialogFragment {
                     commandesDatabase.setValue(commande);
                     Toast.makeText(activity, "Commande envoyée !", Toast.LENGTH_LONG).show();
                     numberCommandReference.setValue(number + 1);
+
+
+                    for (ProductPanier p : listProducts) {
+                        decrementStock(p);
+                    }
+
                     Panier.clean();
                 } else {
                     Toast.makeText(activity, "Position GPS indisponible, commande non envoyée !", Toast.LENGTH_LONG).show();
@@ -170,6 +179,24 @@ public class DialogFragmentPanier extends DialogFragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 // Failed to read value
+            }
+        });
+    }
+
+    private void decrementStock(ProductPanier p) {
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("products").child(p.getProductId());
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Product product = dataSnapshot.getValue(Product.class);
+
+                myRef.child("stock").setValue(product.getStock() - p.getQuantity());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
     }

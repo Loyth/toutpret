@@ -71,7 +71,7 @@ public class FragmentCommandesLivrees extends Fragment {
     private void getCommandes() {
         DatabaseReference myRef = mDatabase.getReference("commandes");
 
-        myRef.addChildEventListener(new ChildEventListener() {
+        myRef.orderByChild("livreurId").equalTo(auth.getUid()).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 Commandes newCommande = dataSnapshot.getValue(Commandes.class);
@@ -105,7 +105,7 @@ public class FragmentCommandesLivrees extends Fragment {
                             listCommandes.remove(position);
                         }
 
-                        myAdapter.notifyItemChanged(position);
+                        myAdapter.notifyDataSetChanged();
 
                         return;
                     }

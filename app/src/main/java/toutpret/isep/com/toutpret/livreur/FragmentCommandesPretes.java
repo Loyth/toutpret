@@ -83,7 +83,7 @@ public class FragmentCommandesPretes extends Fragment {
 
                     Collections.sort(listCommandes, new Comparator<Commandes>() {
                         public int compare(Commandes o1, Commandes o2) {
-                            return o2.getDate().compareTo(o1.getDate());
+                            return o1.getDate().compareTo(o2.getDate());
                         }
                     });
 
@@ -106,7 +106,7 @@ public class FragmentCommandesPretes extends Fragment {
                             listCommandes.remove(position);
                         }
 
-                        myAdapter.notifyItemChanged(position);
+                        myAdapter.notifyDataSetChanged();
 
                         return;
                     }

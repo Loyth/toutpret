@@ -71,7 +71,7 @@ public class FragmentCommandesLivraison extends Fragment {
     private void getCommandes() {
         DatabaseReference myRef = mDatabase.getReference("commandes");
 
-        myRef.addChildEventListener(new ChildEventListener() {
+        myRef.orderByChild("livreurId").equalTo(auth.getUid()).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 Commandes newCommande = dataSnapshot.getValue(Commandes.class);
@@ -82,7 +82,7 @@ public class FragmentCommandesLivraison extends Fragment {
 
                     Collections.sort(listCommandes, new Comparator<Commandes>() {
                         public int compare(Commandes o1, Commandes o2) {
-                            return o2.getDate().compareTo(o1.getDate());
+                            return o1.getDate().compareTo(o2.getDate());
                         }
                     });
 
@@ -105,7 +105,7 @@ public class FragmentCommandesLivraison extends Fragment {
                             listCommandes.remove(position);
                         }
 
-                        myAdapter.notifyItemChanged(position);
+                        myAdapter.notifyDataSetChanged();
 
                         return;
                     }

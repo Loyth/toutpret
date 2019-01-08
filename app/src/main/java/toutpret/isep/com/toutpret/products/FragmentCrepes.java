@@ -38,7 +38,8 @@ public class FragmentCrepes extends Fragment implements FragmentInterface {
     private FloatingActionButton panier;
 
     public FragmentCrepes() {
-
+        Panier.addFragment(this);
+        listProducts = new ArrayList<>();
     }
 
     @Nullable
@@ -55,8 +56,6 @@ public class FragmentCrepes extends Fragment implements FragmentInterface {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_crepes, container, false);
-
-        listProducts = new ArrayList<>();
 
         auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();
@@ -135,9 +134,12 @@ public class FragmentCrepes extends Fragment implements FragmentInterface {
 
     @Override
     public void checkIfProductIsMine_add_update(ProductPanier p) {
+        Log.i("userFirebase", p.getProductId());
         for (Product product : listProducts) {
             if (product.getId().equals(p.getId())) {
                 int position = listProducts.indexOf(product);
+
+                Log.i("userFirebase", "position " + position);
 
                 listProducts.get(position).setQuantity(p.getQuantity());
                 myAdapter.notifyItemChanged(position);

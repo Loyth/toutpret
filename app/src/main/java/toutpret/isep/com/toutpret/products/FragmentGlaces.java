@@ -38,7 +38,8 @@ public class FragmentGlaces extends Fragment implements FragmentInterface {
     private FloatingActionButton panier;
 
     public FragmentGlaces() {
-
+        Panier.addFragment(this);
+        listProducts = new ArrayList<>();
     }
 
     @Nullable
@@ -55,8 +56,6 @@ public class FragmentGlaces extends Fragment implements FragmentInterface {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_glaces, container, false);
-
-        listProducts = new ArrayList<>();
 
         auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();

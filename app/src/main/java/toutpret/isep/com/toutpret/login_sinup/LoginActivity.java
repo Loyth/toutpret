@@ -38,8 +38,7 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Se connecter");
+        getSupportActionBar().hide();
 
         inputEmail = findViewById(R.id.emailEditText);
         inputPassword = findViewById(R.id.passwordEditText);

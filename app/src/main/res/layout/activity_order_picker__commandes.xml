@@ -4,16 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".orderpicker.OrderPicker_Commandes"
-    android:padding="8dp"
-    android:scrollbars="vertical"
     android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/orderpicker_commande_recyclerview_id"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/orderpicker_commande_tablayout_id"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:tabBackground="@color/colorPrimary"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/colorAccent"
+        app:tabMode="fixed"
+        app:tabTextColor="@android:color/background_light" />
 
-    </android.support.v7.widget.RecyclerView>
-
+    <android.support.v4.view.ViewPager
+        android:id="@+id/orderpicker_commande_viewpager_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

@@ -39,7 +39,8 @@ public class FragmentGaufres extends Fragment implements FragmentInterface {
     private FloatingActionButton panier;
 
     public FragmentGaufres() {
-
+        Panier.addFragment(this);
+        listProducts = new ArrayList<>();
     }
 
     @Nullable
@@ -56,8 +57,6 @@ public class FragmentGaufres extends Fragment implements FragmentInterface {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_gaufres, container, false);
-
-        listProducts = new ArrayList<>();
 
         auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();
