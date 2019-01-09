@@ -60,6 +60,8 @@ public class FragmentCrepes extends Fragment implements FragmentInterface {
         auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();
 
+        listProducts = new ArrayList<>();
+
         getProducts("b");
 
         RecyclerView myrv = view.findViewById(R.id.crepes_recyclerview_id);

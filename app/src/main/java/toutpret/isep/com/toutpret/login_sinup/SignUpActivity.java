@@ -37,7 +37,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("S'inscrire");
+        actionBar.hide();
 
         auth = FirebaseAuth.getInstance();
 

@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (!task.isSuccessful()) {
-                                    Toast.makeText(LoginActivity.this, "Ce compte n'existe pas !", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(LoginActivity.this, "E-mail ou mot de passe invalide", Toast.LENGTH_LONG).show();
                                 } else {
                                     Toast.makeText(getApplicationContext(), "Connexion réussie !", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -88,5 +88,10 @@ public class LoginActivity extends AppCompatActivity {
                         });
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        // do nothing
     }
 }

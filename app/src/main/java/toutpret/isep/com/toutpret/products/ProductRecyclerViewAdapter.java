@@ -5,6 +5,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
@@ -91,9 +92,13 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
 
                 if (currentQuantity < mData.get(i).getStock()) {
                     if (productAlreadyAdded) {
-                        Panier.update(new ProductPanier(mData.get(position).getId(), mData.get(position).getName(), currentQuantity + 1, mData.get(position).getPrice(), mData.get(i).getId()), false);
+                        ProductPanier p = new ProductPanier(mData.get(position).getId(), mData.get(position).getName(), currentQuantity + 1, mData.get(position).getPrice(), mData.get(i).getId());
+
+                        Panier.update(p, false);
                     } else {
-                        Panier.add(new ProductPanier(mData.get(position).getId(), mData.get(position).getName(), 1, mData.get(position).getPrice(), mData.get(i).getId()));
+                        ProductPanier p = new ProductPanier(mData.get(position).getId(), mData.get(position).getName(), 1, mData.get(position).getPrice(), mData.get(i).getId());
+
+                        Panier.add(p);
                     }
                 }
             }

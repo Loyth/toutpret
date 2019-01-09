@@ -77,36 +77,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-
-        MenuItem logout = menu.findItem(R.id.action_logout);
-
-        logout.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                auth.signOut();
-                Toast.makeText(getApplicationContext(), "Déconnexion réussie !", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                return true;
-            }
-        });
-
-        MenuItem commandes = menu.findItem(R.id.action_take_away);
-
-        commandes.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                startActivity(new Intent(getApplicationContext(), CommandesActivity.class));
-                return true;
-            }
-        });
-
-        return true;
-    }
-
     public void redirectUser() {
         DatabaseReference myRef = mDatabase.getReference("users");
 

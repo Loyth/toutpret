@@ -60,6 +60,8 @@ public class FragmentGlaces extends Fragment implements FragmentInterface {
         auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();
 
+        listProducts = new ArrayList<>();
+
         getProducts("e");
 
         RecyclerView myrv = view.findViewById(R.id.glaces_recyclerview_id);

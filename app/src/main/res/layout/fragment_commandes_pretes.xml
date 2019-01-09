@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="8dp">
+
+    <TextView
+        android:id="@+id/livreur_commande_pretes_text_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Aucune commande n'est à livrer"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/livreur_commande_pretes_recyclerview_id"
@@ -11,4 +23,4 @@
 
     </android.support.v7.widget.RecyclerView>
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

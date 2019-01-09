@@ -62,6 +62,8 @@ public class FragmentFruits extends Fragment implements FragmentInterface {
         auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();
 
+        listProducts = new ArrayList<>();
+
         getProducts("a");
 
         RecyclerView myrv = view.findViewById(R.id.fruits_recyclerview_id);

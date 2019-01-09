@@ -60,6 +60,8 @@ public class FragmentBeignets extends Fragment implements FragmentInterface {
         auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();
 
+        listProducts = new ArrayList<>();
+
         getProducts("d");
 
         RecyclerView myrv = view.findViewById(R.id.beignets_recyclerview_id);
