@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -32,6 +33,7 @@ public class FragmentCommandeEnPreparation extends Fragment {
     private FirebaseAuth auth;
     private List<Commandes> listCommande;
     private OrderPickerRecyclerViewAdapter myAdapter;
+    private TextView text;
 
     @Nullable
     @Override
@@ -58,6 +60,9 @@ public class FragmentCommandeEnPreparation extends Fragment {
         myrv.setLayoutManager(new GridLayoutManager(getContext(), 1));
         myrv.setAdapter(myAdapter);
 
+        text = view.findViewById(R.id.orderpicker_commande_en_preparation_text_id);
+        text.setVisibility(View.VISIBLE);
+
         getCommandes();
 
         return view;
@@ -81,6 +86,8 @@ public class FragmentCommandeEnPreparation extends Fragment {
                         }
                     });
 
+                    text.setVisibility(View.GONE);
+
                     myAdapter.notifyDataSetChanged();
                 }
             }
@@ -100,6 +107,8 @@ public class FragmentCommandeEnPreparation extends Fragment {
                             listCommande.remove(position);
                         }
 
+                        text.setVisibility(View.GONE);
+
                         myAdapter.notifyDataSetChanged();
 
                         return;
@@ -114,6 +123,8 @@ public class FragmentCommandeEnPreparation extends Fragment {
                             return o1.getDate().compareTo(o2.getDate());
                         }
                     });
+
+                    text.setVisibility(View.GONE);
 
                     myAdapter.notifyDataSetChanged();
                 }

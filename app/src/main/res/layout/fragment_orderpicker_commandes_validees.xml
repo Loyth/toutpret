@@ -9,6 +9,16 @@
     android:scrollbars="vertical"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/orderpicker_commande_validees_text_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Aucune commande préparée"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/orderpicker_commande_validees_recyclerview_id"
         android:layout_width="match_parent"
